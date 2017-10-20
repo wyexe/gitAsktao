@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MyTools">
+      <UniqueIdentifier>{3552869c-31e8-4ddd-8d02-922e91b70370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{4ed27bbd-349e-4cdc-b027-fadbf0cdc10c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Text">
+      <UniqueIdentifier>{4a3a26e9-dd1e-4d23-8ff7-614c175dad8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Text\Expr">
+      <UniqueIdentifier>{a6e06a02-cd6c-4e67-8c79-e8d0799ef3a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Text\Res">
+      <UniqueIdentifier>{e5ae030d-0218-4169-98b0-d5bb168c84a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Feature">
+      <UniqueIdentifier>{175c1287-9a1a-4c74-a88a-86bca97637cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object">
+      <UniqueIdentifier>{e08df335-cc88-4025-b1c9-79f2abad957e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Script">
+      <UniqueIdentifier>{2fa8ad0f-e0d4-4553-841b-c6968a9cc742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Feature\GameCore">
+      <UniqueIdentifier>{1ab0d1ce-7be6-4d4f-8c77-5091afa4495b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Common">
+      <UniqueIdentifier>{db8d11a9-5eab-435e-a61d-e3a6f22c92f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\Character.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\ClassInstance.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLAsync.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLClient.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLEchoException.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLErrMsg.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLExpression.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLExpressionCalc.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLFile.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLLock.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLNoModuleDLL.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLPic.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLProcess.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLPublic.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLThread.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CmdLog.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\ConditionPrint.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\LDasm.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\LdrHeader.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\Log.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\PELoader.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\SocketBuffer.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\TimeTick.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLClientIoEvent.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCALL.h">
+      <Filter>Core\Feature\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeTransfer.h">
+      <Filter>Core\Feature\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStruct.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameVariable.h">
+      <Filter>Core\Text\Res</Filter>
+    </ClInclude>
+    <ClInclude Include="Expr.h">
+      <Filter>Core\Text\Expr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDLL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\Character.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLAsync.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLClient.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLErrMsg.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLExpression.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLExpressionCalc.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLFile.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLLock.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLNoModuleDLL.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLPic.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLProcess.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLThread.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CmdLog.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CPublic.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\LDasm.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\LdrHeader.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\Log.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\PELoader.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\SocketBuffer.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\TimeTick.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLClientIoEvent.cpp">
+      <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCALL.cpp">
+      <Filter>Core\Feature\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeTransfer.cpp">
+      <Filter>Core\Feature\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="GameVariable.cpp">
+      <Filter>Core\Text\Res</Filter>
+    </ClCompile>
+    <ClCompile Include="Expr.cpp">
+      <Filter>Core\Text\Expr</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
