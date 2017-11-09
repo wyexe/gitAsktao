@@ -110,6 +110,11 @@ std::wstring CPersonAttribute::GetMapName() CONST
 	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"map_name");
 }
 
+std::wstring CPersonAttribute::GetCurrentLine()
+{
+	return MyTools::CCharacter::ASCIIToUnicode(std::string(reinterpret_cast<CONST CHAR*>(线路基址 + 0x4)));
+}
+
 BOOL CPersonAttribute::IsFighting() CONST
 {
 	return ReadBYTE(ReadDWORD(是否战斗中基址) + 0xC) == 0x9;

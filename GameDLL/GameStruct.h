@@ -21,6 +21,8 @@
 #define 队友MAXHP偏移		0x3FC
 #define 人物属性基址			0xD97F74
 #define 人物属性偏移			0xE4
+#define 线路基址				0xD920B4
+#define 背包基址				0xD946FC
 
 #define ReadDWORD(Addr) MyTools::CCharacter::ReadDWORD(Addr)
 #define ReadBYTE(Addr)  MyTools::CCharacter::ReadBYTE(Addr)

@@ -4,8 +4,6 @@
 #include <MyTools/Log.h>
 #include <MyTools/CLEchoException.h>
 #include "GameStruct.h"
-#include "GameUi.h"
-#include "Monster.h"
 
 #define _SELF L"ObjectExtend.cpp"
 UINT CObjectExtend::GetGameUiList(_Out_ std::map<std::wstring, CGameUi>& GameUiList) CONST
@@ -36,15 +34,21 @@ UINT CObjectExtend::GetGameUiList(_Out_ std::map<std::wstring, CGameUi>& GameUiL
 	});
 }
 
-
-
 BOOL CObjectExtend::FindPersonAttribute_By_Key(_In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
 {
-	std::string szKey = MyTools::CCharacter::UnicodeToASCII(wsKey);
-	return MyTools::CLEchoException::GetInstance().InvokeFunc<BOOL>(__FUNCTIONW__, [szKey, &wsValue]
-	{
-		DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(人物属性基址) + 人物属性偏移 + 0x4 + 0x4) + 0x4);
+	return FindValue_By_Key_In_GameTree(ReadDWORD(ReadDWORD(ReadDWORD(人物属性基址) + 人物属性偏移 + 0x4 + 0x4) + 0x4), wsKey, wsValue);
+}
 
+BOOL CObjectExtend::FindItemAttribute_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
+{
+	return FindValue_By_Key_In_GameTree(ReadDWORD(ReadDWORD(Item.GetObjAddr() + 0x4 + 0x4 + 0x4) + 0x4), wsKey, wsValue);
+}
+
+BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
+{
+	std::string szKey = MyTools::CCharacter::UnicodeToASCII(wsKey);
+	return MyTools::CLEchoException::GetInstance().InvokeFunc<BOOL>(__FUNCTIONW__, [szKey, &wsValue, dwHead]
+	{
 		std::queue<DWORD> QueNode;
 		QueNode.push(dwHead);
 
@@ -54,30 +58,55 @@ BOOL CObjectExtend::FindPersonAttribute_By_Key(_In_ CONST std::wstring& wsKey, _
 			auto dwAddr = QueNode.front();
 			QueNode.pop();
 
-			if (ReadBYTE(dwAddr + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) < 32 && ReadBYTE(dwAddr + 0x2C) != 0)
-			{
-				CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
-				
-				if (strcmp(szKey.c_str(), pszKey) == 0)
-				{
-					CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
-
-					wsValue = MyTools::CCharacter::ASCIIToUnicode(std::string(pszValue));
-					return TRUE;
-				}
-				//LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
-			}
-
 			// 广度优先   深度优先怕递归……
 			if (ReadBYTE(dwAddr + 0x45) == 0)
 			{
 				QueNode.push(ReadDWORD(dwAddr + 0x0));
 				QueNode.push(ReadDWORD(dwAddr + 0x8));
+				if (ReadBYTE(dwAddr + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) < 32 && ReadBYTE(dwAddr + 0x2C) != 0)
+				{
+					CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
+
+					if (strcmp(szKey.c_str(), pszKey) == 0)
+					{
+						CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
+
+						wsValue = MyTools::CCharacter::ASCIIToUnicode(std::string(pszValue));
+						return TRUE;
+					}
+					//LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
+				}
 			}
 		}
 
 		return FALSE;
 	});
+}
+
+UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST
+{
+	DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(背包基址) + 0x14 + 0x4) + 0x4);
+
+	std::queue<DWORD> QueNode;
+	QueNode.push(dwHead);
+
+	int nCount = 0;
+	while (!QueNode.empty() && ++nCount < 1000)
+	{
+		auto dwAddr = QueNode.front();
+		QueNode.pop();
+
+		if (ReadDWORD(dwAddr + 0xC) != 0)
+			VecBagItem.emplace_back(dwAddr);
+		
+
+		// 广度优先   深度优先怕递归……
+		if (ReadBYTE(dwAddr + 0x15) == 0)
+		{
+			QueNode.push(ReadDWORD(dwAddr + 0x0));
+			QueNode.push(ReadDWORD(dwAddr + 0x8));
+		}
+	}
 }
 
 UINT CObjectExtend::GetVecMonster(_Out_ std::vector<CMonster>& VecMonster) CONST

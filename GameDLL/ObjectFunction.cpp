@@ -88,3 +88,27 @@ DWORD CObjectFunction::GetPersonAttributeValue_By_Key(_In_ CONST std::wstring& w
 
 	return std::stoi(wsValue);
 }
+
+CONST std::wstring CObjectFunction::GetItemText_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST
+{
+	std::wstring wsValue;
+	if (!FindItemAttribute_By_Key(Item, wsKey, wsValue))
+	{
+		LOG_MSG_CF(L"GetItemText_By_Key[%s] = FALSE", wsKey.c_str());
+		return L"";
+	}
+
+	return wsValue;
+}
+
+DWORD CObjectFunction::GetItemValue_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST
+{
+	std::wstring wsValue;
+	if (!FindItemAttribute_By_Key(Item, wsKey, wsValue))
+	{
+		LOG_MSG_CF(L"GetItemValue_By_Key[%s] = FALSE", wsKey.c_str());
+		return 0;
+	}
+
+	return std::stoi(wsValue);
+}

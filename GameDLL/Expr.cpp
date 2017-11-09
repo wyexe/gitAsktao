@@ -127,6 +127,33 @@ VOID CExpr::WatchNewUi(CONST std::vector<std::wstring>& VecParam)
 	}
 }
 
+VOID PrintEqui(DWORD dwAddr)
+{
+	std::queue<DWORD> QueNode;
+	QueNode.push(ReadDWORD(ReadDWORD(dwAddr + 0x4) + 0x4));
+
+	int nCount = 0;
+	while (!QueNode.empty() && ++nCount < 1000)
+	{
+		dwAddr = QueNode.front();
+		QueNode.pop();
+
+		// 广度优先   深度优先怕递归……
+		if (ReadBYTE(dwAddr + 0x45) == 0)
+		{
+			QueNode.push(ReadDWORD(dwAddr + 0x0));
+			QueNode.push(ReadDWORD(dwAddr + 0x8));
+
+			if (ReadBYTE(dwAddr + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) < 32 && ReadBYTE(dwAddr + 0x2C) != 0)
+			{
+				CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
+				CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
+				LOG_C_D(L"dwAddr=%X,pszKey=%s,pszValue=%s", dwAddr, MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
+			}
+		}
+	}
+}
+
 VOID CExpr::Test(CONST std::vector<std::wstring>&)
 {
 	/*std::vector<CMonster> VecMonster;
@@ -135,42 +162,29 @@ VOID CExpr::Test(CONST std::vector<std::wstring>&)
 	{
 		LOG_C_D(L"NodeBase=%X, Index=%d, 怪物ID=%X, Name=%s",itm.GetNodeBase(), itm.GetIndex(), itm.GetId(), itm.GetName().c_str());
 	}*/
-	// 0xE4, 11C, 
-	MyTools::CLEchoException::GetInstance().InvokeAction(__FUNCTIONW__, [] 
+
+	DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(背包基址) + 0x14 + 0x4) + 0x4);
+
+	std::queue<DWORD> QueNode;
+	QueNode.push(dwHead);
+
+	int nCount = 0;
+	while (!QueNode.empty() && ++nCount < 1000)
 	{
-		DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(0xD97F74) + 0xE4 + 0x4 + 0x4) + 0x4);
+		auto dwAddr = QueNode.front();
+		QueNode.pop();
 
-		std::queue<DWORD> QueNode;
-		QueNode.push(dwHead);
 
-		int nCount = 0;
-		while (QueNode.size() != 0 && ++nCount < 1000)
+		// +10 = Object
+		LOG_C_D(L"dwAddr=%X, +C=%d, +10=%X", dwAddr, ReadDWORD(dwAddr + 0xC), ReadDWORD(dwAddr + 0x10));
+		PrintEqui(ReadDWORD(dwAddr + 0x10) + 0x4 + 0x4);
+
+
+		// 广度优先   深度优先怕递归……
+		if (ReadBYTE(dwAddr + 0x15) == 0)
 		{
-			auto dwAddr = QueNode.front();
-			QueNode.pop();
-
-			// Print
-
-			if (ReadBYTE(dwAddr + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) < 32 && ReadBYTE(dwAddr + 0x2C) != 0)
-			{
-				CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
-				CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
-
-
-				LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
-			}
-
-			//LOG_C_D(L"dwAddr=%X,Cmp = %d, Key=%d,KeyLen=%d,Value=%d,ValueLen=%d", dwAddr, ReadBYTE(dwAddr + 0x45), ReadBYTE(dwAddr + 0x10), ReadBYTE(dwAddr + 0x10 + 0x10), ReadBYTE(dwAddr + 0x2C), ReadBYTE(dwAddr + 0x10 + 0x2C));
-			if (ReadBYTE(dwAddr + 0x45) == 0)
-			{
-				DWORD dwTree1 = ReadDWORD(dwAddr + 0x0);
-				DWORD dwTree2 = ReadDWORD(dwAddr + 0x8);
-				//LOG_C_D(L"dwTree1=%X,dwTree2=%X", dwTree1, dwTree2);
-				if (dwTree1 != dwAddr)
-					QueNode.push(dwTree1);
-				if (dwTree2 != dwAddr)
-					QueNode.push(dwTree2);
-			}
+			QueNode.push(ReadDWORD(dwAddr + 0x0));
+			QueNode.push(ReadDWORD(dwAddr + 0x8));
 		}
-	});
+	}
 }

@@ -33,6 +33,12 @@ public:
 
 	//
 	DWORD		 GetPersonAttributeValue_By_Key(_In_ CONST std::wstring& wsKey) CONST;
+
+	//
+	CONST std::wstring GetItemText_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST;
+
+	//
+	DWORD		GetItemValue_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST;
 private:
 	virtual VOID AbstractMethod() override;
 private:

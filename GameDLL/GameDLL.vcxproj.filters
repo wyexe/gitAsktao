@@ -67,9 +67,6 @@
     <Filter Include="Core\Feature\Battle">
       <UniqueIdentifier>{7b8cfa1b-f39e-436c-a507-d39137db4211}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Object\TeamMember">
-      <UniqueIdentifier>{09531b24-4b87-48e8-9737-401cc85515db}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -198,8 +195,8 @@
     <ClInclude Include="BattleAttribute.h">
       <Filter>Core\Feature\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="TeamMember.h">
-      <Filter>Core\Object\TeamMember</Filter>
+    <ClInclude Include="BagItem.h">
+      <Filter>Core\Object\Bag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,8 +308,8 @@
     <ClCompile Include="BattleAttribute.cpp">
       <Filter>Core\Feature\Battle</Filter>
     </ClCompile>
-    <ClCompile Include="TeamMember.cpp">
-      <Filter>Core\Object\TeamMember</Filter>
+    <ClCompile Include="BagItem.cpp">
+      <Filter>Core\Object\Bag</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

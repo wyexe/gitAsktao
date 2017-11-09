@@ -4,9 +4,10 @@
 #include <map>
 #include <mutex>
 #include <MyTools/ClassInstance.h>
+#include "GameUi.h"
+#include "Monster.h"
+#include "BagItem.h"
 
-class CGameUi;
-class CMonster;
 class CObjectExtend
 {
 public:
@@ -21,6 +22,15 @@ public:
 
 	// 
 	BOOL FindPersonAttribute_By_Key(_In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST;
+
+	//
+	BOOL FindItemAttribute_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST;
+
+	//
+	BOOL FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST;
+
+	//
+	UINT GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST;
 private:
 	//
 	VOID TraverseGameUi(_In_ DWORD dwNode, _Out_ std::vector<DWORD>& VecGameUiNode) CONST;
