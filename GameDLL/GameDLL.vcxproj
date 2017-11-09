@@ -73,10 +73,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\..\MyTools;$(IncludePath)</IncludePath>
+    <TargetName>AskDLL</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\..\MyTools;$(IncludePath)</IncludePath>
+    <TargetName>AskDLL</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -88,7 +90,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMEDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -166,13 +168,23 @@
     <ClInclude Include="..\..\MyTools\MyTools\SocketBuffer.h" />
     <ClInclude Include="..\..\MyTools\MyTools\TimeTick.h" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
+    <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="BattleAttribute.h" />
     <ClInclude Include="CodeTransfer.h" />
     <ClInclude Include="Expr.h" />
     <ClInclude Include="GameCALL.h" />
+    <ClInclude Include="GameOffsetPtr.h" />
     <ClInclude Include="GameStruct.h" />
+    <ClInclude Include="GameUi.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="ObjectExtend.h" />
+    <ClInclude Include="ObjectFunction.h" />
+    <ClInclude Include="PersonAttribute.h" />
+    <ClInclude Include="PetAttribute.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="GameVariable.h" />
+    <ClInclude Include="TeamMember.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\MyTools\MyTools\Character.cpp" />
@@ -196,6 +208,7 @@
     <ClCompile Include="..\..\MyTools\MyTools\PELoader.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\SocketBuffer.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\TimeTick.cpp" />
+    <ClCompile Include="BattleAttribute.cpp" />
     <ClCompile Include="CodeTransfer.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -214,6 +227,13 @@
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="GameCALL.cpp" />
     <ClCompile Include="GameDLL.cpp" />
+    <ClCompile Include="GameOffsetPtr.cpp" />
+    <ClCompile Include="GameUi.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="ObjectExtend.cpp" />
+    <ClCompile Include="ObjectFunction.cpp" />
+    <ClCompile Include="PersonAttribute.cpp" />
+    <ClCompile Include="PetAttribute.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -221,6 +241,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GameVariable.cpp" />
+    <ClCompile Include="TeamMember.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,7 +18,11 @@ public:
 private:
 	virtual VOID Help(CONST std::vector<std::wstring>& VecParm);
 
-	virtual VOID Test(CONST std::vector<std::wstring>& VecParm);
+	virtual VOID PrintUi(CONST std::vector<std::wstring>&);
+
+	virtual VOID WatchNewUi(CONST std::vector<std::wstring>& VecParam);
+
+	virtual VOID Test(CONST std::vector<std::wstring>&);
 };
 
 
