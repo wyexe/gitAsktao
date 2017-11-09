@@ -2,7 +2,7 @@
 #define __GITASKTAO_GAMEDLL_CORE_COMMON_GAMESTRUCT_H__
 
 
-#define UI遍历基址			0xD91460
+#define UI遍历基址			0xD944E0
 #define UIName偏移			0x94
 #define UI遍历偏移1			0x1E4
 #define 人物HP偏移			0x1F0
@@ -14,8 +14,8 @@
 #define 怪物ID偏移			0x8
 #define 怪物遍历基址			0xD90F68
 #define 怪物遍历偏移			0x2A0
-#define 当前地图基址			0xD91498
-#define 是否战斗中基址		0xD97D44
+#define 当前地图基址			0x0D94518
+#define 是否战斗中基址		0xD9ADC4
 #define 人物战斗菜单UI偏移	0x40
 #define 队友HP偏移			0x3F8
 #define 队友MAXHP偏移		0x3FC

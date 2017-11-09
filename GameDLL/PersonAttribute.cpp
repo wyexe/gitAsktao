@@ -14,7 +14,7 @@ DWORD CPersonAttribute::GetHp() CONST
 
 DWORD CPersonAttribute::GetMaxHP() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"life");
+	return CObjectFunction::GetInstance().GetGameUiValue_By_MapKey(L"PanMeDlg.Life", CGameOffsetPtr().GetMaxHpPtr());
 }
 
 DWORD CPersonAttribute::GetMp() CONST
@@ -89,10 +89,10 @@ DWORD CPersonAttribute::GetPolarPoint() CONST
 
 CPersonAttribute::CashContent CPersonAttribute::GetMoney() CONST
 {
-	CashContent Content = 
-	{ 
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"cash"), 
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"voucher") 
+	CashContent Content =
+	{
+		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"cash"),
+		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"voucher")
 	};
 	return Content;
 }
@@ -100,7 +100,7 @@ CPersonAttribute::CashContent CPersonAttribute::GetMoney() CONST
 Point CPersonAttribute::GetPoint() CONST
 {
 	return Point(
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"x"), 
+		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"x"),
 		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"y"));
 }
 

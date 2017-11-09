@@ -135,6 +135,7 @@ VOID CExpr::Test(CONST std::vector<std::wstring>&)
 	{
 		LOG_C_D(L"NodeBase=%X, Index=%d, π÷ŒÔID=%X, Name=%s",itm.GetNodeBase(), itm.GetIndex(), itm.GetId(), itm.GetName().c_str());
 	}*/
+	// 0xE4, 11C, 
 	MyTools::CLEchoException::GetInstance().InvokeAction(__FUNCTIONW__, [] 
 	{
 		DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(0xD97F74) + 0xE4 + 0x4 + 0x4) + 0x4);
