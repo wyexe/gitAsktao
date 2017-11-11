@@ -2,6 +2,8 @@
 #include "BagItem.h"
 #include <MyTools/Character.h>
 #include "ObjectFunction.h"
+#include "CodeTransfer.h"
+#include "GameCALL.h"
 
 CBagItem::CBagItem(_In_ DWORD dwNodeBase)
 {
@@ -33,4 +35,19 @@ DWORD CBagItem::GetItemType() CONST
 DWORD CBagItem::GetDurability() CONST
 {
 	return CObjectFunction::GetInstance().GetItemValue_By_Key(*this, L"durability");
+}
+
+DWORD CBagItem::GetCount() CONST
+{
+	return CObjectFunction::GetInstance().GetItemValue_By_Key(*this, L"server_count");
+}
+
+DWORD CBagItem::GetId() CONST
+{
+	return CObjectFunction::GetInstance().GetItemValue_By_Key(*this, L"pos");
+}
+
+VOID CBagItem::UseItem_NoFight()
+{
+	CCodeTransfer::PushPtrToMainThread([this] { CGameCALL::UseItem_NoFight(GetId()); });
 }

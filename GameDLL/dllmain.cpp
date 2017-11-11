@@ -5,14 +5,21 @@
 #include <MyTools/CLPublic.h>
 #include <MyTools/CmdLog.h>
 #include <MyTools/CLAsync.h>
+#include <MyTools/Character.h>
 #include "Expr.h"
+#include "GameVariable.h"
+#include "CodeTransfer.h"
+
+#define _SELF L"dllmian.cpp"
 
 HANDLE hWorkThread = NULL;
 DWORD WINAPI _WorkThread(LPVOID)
 {
 	MyTools::CLAsync::GetInstance().Run();
 	MyTools::CLog::GetInstance().SetClientName(L"Game", MyTools::CLPublic::MakeCurrentPath(L"\\DLog\\"));
+	
 	MyTools::CCmdLog::GetInstance().Run(L"Game", CExpr::GetInstance().GetVec());
+	CCodeTransfer::Hook();
 	return 0;
 }
 
@@ -38,6 +45,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 
 extern "C" __declspec(dllexport)  VOID WINAPIV ExitDLL()
 {
+	CCodeTransfer::UnHook();
 	MyTools::CCmdLog::GetInstance().Stop();
 	MyTools::CLAsync::GetInstance().Stop();
 	MyTools::CLog::GetInstance().Release();

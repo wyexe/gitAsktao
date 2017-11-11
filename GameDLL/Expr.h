@@ -23,6 +23,10 @@ private:
 	virtual VOID WatchNewUi(CONST std::vector<std::wstring>& VecParam);
 
 	virtual VOID Test(CONST std::vector<std::wstring>&);
+
+	virtual VOID PrintMonster(CONST std::vector<std::wstring>&);
+
+	virtual VOID PrintBag(CONST std::vector<std::wstring>&);
 };
 
 

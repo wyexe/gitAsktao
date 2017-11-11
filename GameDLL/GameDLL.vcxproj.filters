@@ -198,6 +198,15 @@
     <ClInclude Include="BagItem.h">
       <Filter>Core\Object\Bag</Filter>
     </ClInclude>
+    <ClInclude Include="BagItemExtend.h">
+      <Filter>Core\Object\Bag</Filter>
+    </ClInclude>
+    <ClInclude Include="BagItemAction.h">
+      <Filter>Core\Object\Bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLSearchBase.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -310,6 +319,15 @@
     </ClCompile>
     <ClCompile Include="BagItem.cpp">
       <Filter>Core\Object\Bag</Filter>
+    </ClCompile>
+    <ClCompile Include="BagItemExtend.cpp">
+      <Filter>Core\Object\Bag</Filter>
+    </ClCompile>
+    <ClCompile Include="BagItemAction.cpp">
+      <Filter>Core\Object\Bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLSearchBase.cpp">
+      <Filter>MyTools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

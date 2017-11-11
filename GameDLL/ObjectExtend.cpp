@@ -67,14 +67,19 @@ BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST s
 				{
 					CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
 
-					if (strcmp(szKey.c_str(), pszKey) == 0)
+					if (szKey == "*")
+					{
+						CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
+						LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
+					}
+					else if (strcmp(szKey.c_str(), pszKey) == 0)
 					{
 						CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
 
 						wsValue = MyTools::CCharacter::ASCIIToUnicode(std::string(pszValue));
 						return TRUE;
 					}
-					//LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
+					
 				}
 			}
 		}
@@ -83,7 +88,7 @@ BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST s
 	});
 }
 
-UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST
+UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem, _In_ std::function<BOOL(CONST CBagItem&)> FilterPtr) CONST
 {
 	DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(背包基址) + 0x14 + 0x4) + 0x4);
 
@@ -97,7 +102,18 @@ UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST
 		QueNode.pop();
 
 		if (ReadDWORD(dwAddr + 0xC) != 0)
-			VecBagItem.emplace_back(dwAddr);
+		{
+			CBagItem BagItem(dwAddr);
+			if (FilterPtr == nullptr)
+			{
+				VecBagItem.push_back(BagItem);
+			}
+			else if (FilterPtr(BagItem))
+			{
+				VecBagItem.push_back(BagItem);
+				return 1;
+			}
+		}
 		
 
 		// 广度优先   深度优先怕递归……
@@ -107,6 +123,7 @@ UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST
 			QueNode.push(ReadDWORD(dwAddr + 0x8));
 		}
 	}
+	return VecBagItem.size();
 }
 
 UINT CObjectExtend::GetVecMonster(_Out_ std::vector<CMonster>& VecMonster) CONST

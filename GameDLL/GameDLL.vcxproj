@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\MyTools\MyTools\CLPic.h" />
     <ClInclude Include="..\..\MyTools\MyTools\CLProcess.h" />
     <ClInclude Include="..\..\MyTools\MyTools\CLPublic.h" />
+    <ClInclude Include="..\..\MyTools\MyTools\CLSearchBase.h" />
     <ClInclude Include="..\..\MyTools\MyTools\CLThread.h" />
     <ClInclude Include="..\..\MyTools\MyTools\CmdLog.h" />
     <ClInclude Include="..\..\MyTools\MyTools\ConditionPrint.h" />
@@ -169,6 +170,8 @@
     <ClInclude Include="..\..\MyTools\MyTools\TimeTick.h" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
     <ClInclude Include="BagItem.h" />
+    <ClInclude Include="BagItemAction.h" />
+    <ClInclude Include="BagItemExtend.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BattleAttribute.h" />
     <ClInclude Include="CodeTransfer.h" />
@@ -199,6 +202,7 @@
     <ClCompile Include="..\..\MyTools\MyTools\CLNoModuleDLL.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CLPic.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CLProcess.cpp" />
+    <ClCompile Include="..\..\MyTools\MyTools\CLSearchBase.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CLThread.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CmdLog.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CPublic.cpp" />
@@ -209,6 +213,8 @@
     <ClCompile Include="..\..\MyTools\MyTools\SocketBuffer.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\TimeTick.cpp" />
     <ClCompile Include="BagItem.cpp" />
+    <ClCompile Include="BagItemAction.cpp" />
+    <ClCompile Include="BagItemExtend.cpp" />
     <ClCompile Include="BattleAttribute.cpp" />
     <ClCompile Include="CodeTransfer.cpp" />
     <ClCompile Include="dllmain.cpp">

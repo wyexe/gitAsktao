@@ -30,7 +30,7 @@ public:
 	BOOL FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST;
 
 	//
-	UINT GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem) CONST;
+	UINT GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem, _In_ std::function<BOOL(CONST CBagItem&)> FilterPtr) CONST;
 private:
 	//
 	VOID TraverseGameUi(_In_ DWORD dwNode, _Out_ std::vector<DWORD>& VecGameUiNode) CONST;

@@ -20,6 +20,15 @@ public:
 
 	// 持久度
 	DWORD GetDurability() CONST;
+
+	// 数量
+	DWORD GetCount() CONST;
+
+	// ID
+	DWORD GetId() CONST;
+
+public:
+	VOID UseItem_NoFight();
 private:
 
 };
