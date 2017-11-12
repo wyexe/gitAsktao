@@ -207,6 +207,9 @@
     <ClInclude Include="..\..\MyTools\MyTools\CLSearchBase.h">
       <Filter>MyTools</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterExtend.h">
+      <Filter>Core\Object\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -328,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="..\..\MyTools\MyTools\CLSearchBase.cpp">
       <Filter>MyTools</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterExtend.cpp">
+      <Filter>Core\Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

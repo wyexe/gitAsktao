@@ -25,7 +25,16 @@
 #define 背包基址				0xD956FC
 #define 发包CALL				0x714120
 #define Hook检测1			0x71415B
-#define 恢复VirtualProtect  0x77350028
+#define 恢复VirtualProtect  0x77A40028
+#define NTDLL地址			0x77A20000
+#define 怪物攻击ID虚函数偏移 0xE4
+#define 战斗CALL				0x4E1800
+
+
+
+///----基本不变的偏移-------------------------
+#define 战斗中是否队友偏移	0x54
+
 
 #define ReadDWORD(Addr) MyTools::CCharacter::ReadDWORD(Addr)
 #define ReadBYTE(Addr)  MyTools::CCharacter::ReadBYTE(Addr)
@@ -33,6 +42,11 @@
 enum class em_VariableName
 {
 	NewPeekMessageAddr,
+};
+
+enum em_SkillId
+{
+
 };
 
 struct Point

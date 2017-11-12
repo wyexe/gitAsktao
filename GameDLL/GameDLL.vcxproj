@@ -181,6 +181,7 @@
     <ClInclude Include="GameStruct.h" />
     <ClInclude Include="GameUi.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterExtend.h" />
     <ClInclude Include="ObjectExtend.h" />
     <ClInclude Include="ObjectFunction.h" />
     <ClInclude Include="PersonAttribute.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="GameOffsetPtr.cpp" />
     <ClCompile Include="GameUi.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterExtend.cpp" />
     <ClCompile Include="ObjectExtend.cpp" />
     <ClCompile Include="ObjectFunction.cpp" />
     <ClCompile Include="PersonAttribute.cpp" />

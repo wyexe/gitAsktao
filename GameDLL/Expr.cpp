@@ -7,6 +7,8 @@
 #include "Monster.h"
 #include "ObjectFunction.h"
 #include "BagItemAction.h"
+#include "GameCALL.h"
+#include "PersonAttribute.h"
 
 #define _SELF L"Expr.cpp"
 CExpr::CExpr()
@@ -134,8 +136,14 @@ VOID CExpr::WatchNewUi(CONST std::vector<std::wstring>& VecParam)
 
 VOID CExpr::Test(CONST std::vector<std::wstring>&)
 {
-	CBagItemAction BagItemAction;
-	BagItemAction.UseItem_By_ItemName_In_NoFight(L"µÿ‘∆≤›");
+	//CBagItemAction BagItemAction;
+	//BagItemAction.UseItem_By_ItemName_In_NoFight(L"µÿ‘∆≤›");
+
+	std::vector<CMonster> VecMonster;
+	CObjectFunction::GetInstance().GetVecMonster(VecMonster);
+
+	CPersonAttribute().GetName();
+	
 }
 
 VOID CExpr::PrintMonster(CONST std::vector<std::wstring>&)

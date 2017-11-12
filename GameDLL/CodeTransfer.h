@@ -27,6 +27,8 @@ private:
 	static BOOL WINAPI _PeekMessage(_Out_ LPMSG lpMsg, _In_opt_ HWND hWnd, _In_ UINT wMsgFilterMin, _In_ UINT wMsgFilterMax, _In_ UINT wRemoveMsg);
 
 	static VOID Action_In_HookVirtualProtect(_In_ std::function<VOID(VOID)> Ptr);
+
+	static DWORD GetHookVirtualProtectAddr();
 };
 
 
