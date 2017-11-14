@@ -37,6 +37,8 @@ public:
 	VOID UseItem_To_Target(_In_ CONST CMonster& Target, _In_ CONST CBagItem& Item) CONST;
 
 	VOID RunAway() CONST;
+
+	VOID UseSkill(_In_ CONST CMonster& Target, _In_ em_SkillId emSkillId) CONST;
 private:
 	DWORD _dwIndex = NULL;
 };

@@ -76,6 +76,8 @@ public:
 
 	// √≈≈… ¶∏µ
 	std::wstring GetFamilyMaster() CONST;
+private:
+	DWORD GetAttributeTreeHead() CONST;
 };
 
 

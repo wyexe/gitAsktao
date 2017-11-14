@@ -15,7 +15,6 @@ public:
 	std::function<DWORD(CGameUi&)> GetValue();
 	std::function<std::wstring(CGameUi&)> GetText();
 	std::function<std::wstring(CGameUi&)> GetEditText();
-	std::function<std::wstring(CGameUi&)> GetChoiceLineText();
 private:
 
 };

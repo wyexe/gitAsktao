@@ -28,17 +28,12 @@ public:
 	//
 	BOOL	IsShowGameUi_By_MapKey(_In_ CONST std::wstring& wsKeyText);
 
+public:
 	//
-	CONST std::wstring GetPersonAttributeText_By_Key(_In_ CONST std::wstring& wsKey) CONST;
+	CONST std::wstring	GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST;
 
 	//
-	DWORD		 GetPersonAttributeValue_By_Key(_In_ CONST std::wstring& wsKey) CONST;
-
-	//
-	CONST std::wstring GetItemText_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST;
-
-	//
-	DWORD		GetItemValue_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST;
+	DWORD				GetAttributeValue_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST;
 private:
 	virtual VOID AbstractMethod() override;
 private:

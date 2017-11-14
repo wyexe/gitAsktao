@@ -26,22 +26,12 @@ UINT CObjectExtend::GetGameUiList(_Out_ std::map<std::wstring, CGameUi>& GameUiL
 				CGameUi ChildGameUi(dwChildUiNodeBase);
 
 				auto wsMapKeyText = MyTools::CCharacter::MakeFormatText(L"%s.%s", GameUi.GetName().c_str(), ChildGameUi.GetName().c_str());
-				GameUiList.insert(std::make_pair(wsMapKeyText, ChildGameUi));
+				GameUiList.insert(std::make_pair(wsMapKeyText, std::move(ChildGameUi)));
 			}
 		}
 
 		return GameUiList.size();
 	});
-}
-
-BOOL CObjectExtend::FindPersonAttribute_By_Key(_In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
-{
-	return FindValue_By_Key_In_GameTree(ReadDWORD(ReadDWORD(ReadDWORD(人物属性基址) + 人物属性偏移 + 0x4 + 0x4) + 0x4), wsKey, wsValue);
-}
-
-BOOL CObjectExtend::FindItemAttribute_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
-{
-	return FindValue_By_Key_In_GameTree(ReadDWORD(ReadDWORD(Item.GetObjAddr() + 0x4 + 0x4 + 0x4) + 0x4), wsKey, wsValue);
 }
 
 BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST std::wstring& wsKey, _Out_ std::wstring& wsValue) CONST
@@ -65,11 +55,11 @@ BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST s
 				QueNode.push(ReadDWORD(dwAddr + 0x8));
 				if (ReadBYTE(dwAddr + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) != 0 && ReadBYTE(dwAddr + 0x10 + 0x10) < 32 && ReadBYTE(dwAddr + 0x2C) != 0)
 				{
-					CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
+					CONST CHAR* pszKey = ReadBYTE(dwAddr + 0x10 + 0x14) <= 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x10) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x10));
 
 					if (szKey == "*")
 					{
-						CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) == 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
+						CONST CHAR* pszValue = ReadBYTE(dwAddr + 0x2C + 0x14) <= 0xF ? reinterpret_cast<CONST CHAR*>(dwAddr + 0x2C) : reinterpret_cast<CONST CHAR*>(ReadDWORD(dwAddr + 0x2C));
 						LOG_C_D(L"pszKey=%s,pszValue=%s", MyTools::CCharacter::ASCIIToUnicode(pszKey).c_str(), MyTools::CCharacter::ASCIIToUnicode(pszValue).c_str());
 					}
 					else if (strcmp(szKey.c_str(), pszKey) == 0)
@@ -90,40 +80,44 @@ BOOL CObjectExtend::FindValue_By_Key_In_GameTree(_In_ DWORD dwHead, _In_ CONST s
 
 UINT CObjectExtend::GetVecBagItem(_Out_ std::vector<CBagItem>& VecBagItem, _In_ std::function<BOOL(CONST CBagItem&)> FilterPtr) CONST
 {
-	DWORD dwHead = ReadDWORD(ReadDWORD(ReadDWORD(背包基址) + 0x14 + 0x4) + 0x4);
+	return TraverseObject<CBagItem>(背包基址, 0xC, VecBagItem, FilterPtr);
+}
 
-	std::queue<DWORD> QueNode;
-	QueNode.push(dwHead);
+UINT CObjectExtend::GetVecPet(_Out_ std::vector<CPetObject>& VecPet, _In_ std::function<BOOL(CONST CPetObject&)> FilterPtr) CONST
+{
+	return TraverseObject<CPetObject>(宠物基址, 0x10, VecPet, FilterPtr);
+}
 
-	int nCount = 0;
-	while (!QueNode.empty() && ++nCount < 1000)
+UINT CObjectExtend::GetVecTask(_Out_ std::vector<CTaskObject>& VecTask, _In_ std::function<BOOL(CONST CTaskObject&)> FilterPtr) CONST
+{
+	DWORD dwArrayAddr = ReadDWORD(任务遍历基址) + 任务遍历偏移;
+	DWORD dwArrayHead = ReadDWORD(dwArrayAddr + 0x4);
+	DWORD dwCount = (ReadDWORD(dwArrayAddr + 0x8) - dwArrayHead) / 4;
+	if (dwCount >= 100)
 	{
-		auto dwAddr = QueNode.front();
-		QueNode.pop();
+		LOG_MSG_CF(L"dwCount=%d, 任务哪有那么多?", dwCount);
+		return 0;
+	}
 
-		if (ReadDWORD(dwAddr + 0xC) != 0)
+	for (DWORD i = 0;i < dwCount; ++i)
+	{
+		DWORD dwTaskObject = ReadDWORD(dwArrayHead + i * 4);
+		if(dwTaskObject == NULL)
+			continue;
+
+		CTaskObject TaskObject(dwTaskObject);
+		if (FilterPtr == nullptr)
 		{
-			CBagItem BagItem(dwAddr);
-			if (FilterPtr == nullptr)
-			{
-				VecBagItem.push_back(BagItem);
-			}
-			else if (FilterPtr(BagItem))
-			{
-				VecBagItem.push_back(BagItem);
-				return 1;
-			}
+			VecTask.push_back(std::move(TaskObject));
 		}
-		
-
-		// 广度优先   深度优先怕递归……
-		if (ReadBYTE(dwAddr + 0x15) == 0)
+		else if (FilterPtr(TaskObject))
 		{
-			QueNode.push(ReadDWORD(dwAddr + 0x0));
-			QueNode.push(ReadDWORD(dwAddr + 0x8));
+			VecTask.push_back(std::move(TaskObject));
+			return 1;
 		}
 	}
-	return VecBagItem.size();
+
+	return VecTask.size();
 }
 
 UINT CObjectExtend::GetVecMonster(_Out_ std::vector<CMonster>& VecMonster) CONST

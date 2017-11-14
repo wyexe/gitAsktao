@@ -12,6 +12,12 @@ public:
 	DWORD GetObj() CONST;
 
 	BOOL IsShow() CONST;
+
+	BOOL IsShow_Fight() CONST;
+
+	VOID SetName();
+
+	VOID Click() CONST;
 };
 
 

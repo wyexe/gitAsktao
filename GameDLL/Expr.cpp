@@ -9,6 +9,12 @@
 #include "BagItemAction.h"
 #include "GameCALL.h"
 #include "PersonAttribute.h"
+#include "AskScanBase.h"
+#include "GameUi.h"
+#include "CodeTransfer.h"
+#include "GameText.h"
+#include "PetObject.h"
+#include "PetExtend.h"
 
 #define _SELF L"Expr.cpp"
 CExpr::CExpr()
@@ -36,7 +42,7 @@ std::vector<MyTools::ExpressionFunPtr>& CExpr::GetVec()
 		{ std::bind(&CExpr::WatchNewUi,this, std::placeholders::_1),L"WatchNewUi" },
 		{ std::bind(&CExpr::PrintMonster,this, std::placeholders::_1),L"PrintMonster" },
 		{ std::bind(&CExpr::PrintBag,this, std::placeholders::_1),L"PrintBag" },
-
+		{ std::bind(&CExpr::ScanBase,this, std::placeholders::_1),L"ScanBase" },
 	};
 
 	return Vec;
@@ -133,17 +139,99 @@ VOID CExpr::WatchNewUi(CONST std::vector<std::wstring>& VecParam)
 	}
 }
 
+DWORD GetECX()
+{
+	CObjectFunction::GetInstance().RefreshStaticMapGameUi();
+	auto pGameUi = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TaskDlg.CurrentDetails");
+	if (pGameUi == nullptr)
+	{
+		pGameUi = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TaskTraceDlg.TaskDesc0");
+		if (pGameUi == nullptr)
+		{
+			auto pTaskDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"PanToolDlg.QstBtn");
+			if (pTaskDlg == nullptr)
+			{
+				LOG_C_E(L"pTaskDlg = nullptr");
+				return 0;
+			}
+			pTaskDlg->Click();
+			::Sleep(2 * 1000);
+
+			CObjectFunction::GetInstance().RefreshStaticMapGameUi();
+			/*auto pCloseBtn = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TaskDlg.CloseButton");
+			if (pCloseBtn != nullptr)
+			{
+				pCloseBtn->Click();
+				::Sleep(2000);
+			}*/
+
+
+			pGameUi = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TaskDlg.CurrentDetails");
+			if (pGameUi == nullptr)
+			{
+				pGameUi = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TaskTraceDlg.TaskDesc0");
+				if (pGameUi == nullptr)
+				{
+					LOG_C_E(L"pGameUi = nullptr");
+					return 0;
+				}
+			}
+		}
+	}
+
+	LOG_C_D(L"pGameUi=%X,Obj=%X,Name=%s", pGameUi, pGameUi->GetObj(), pGameUi->GetName().c_str());
+	return pGameUi->GetObj();
+}
+
 
 VOID CExpr::Test(CONST std::vector<std::wstring>&)
 {
-	//CBagItemAction BagItemAction;
-	//BagItemAction.UseItem_By_ItemName_In_NoFight(L"地云草");
-
-	std::vector<CMonster> VecMonster;
+	/*std::vector<CMonster> VecMonster;
 	CObjectFunction::GetInstance().GetVecMonster(VecMonster);
 
-	CPersonAttribute().GetName();
-	
+	CMonster Person;
+	for (auto& itm : VecMonster)
+	{
+		if (itm.GetName() == CPersonAttribute().GetName())
+		{
+			Person = itm;
+			break;
+		}
+	}
+
+
+	CPetObject Pet(0);
+	if (!CPetExtend().FindJoinWarPet(Pet))
+		return;
+
+	CMonster PetMonster;
+	for (auto& itm : VecMonster)
+	{
+		if (itm.GetName() == Pet.GetName())
+		{
+			PetMonster = itm;
+			break;
+		}
+	}
+
+	for (auto& itm : VecMonster)
+	{
+		if(itm.GetType() != CMonster::em_Type::em_Type_Monster)
+			continue;
+
+		LOG_C_D(L"用金光乍现");
+		Person.UseSkill(itm, em_SkillId_金_金虹贯日);
+		::Sleep(1000);
+		PetMonster.Defence();
+		break;
+	}
+	*/
+	/*std::vector<CPetObject> VecPet;
+	CObjectFunction::GetInstance().GetVecPet(VecPet, nullptr);
+	for (auto& itm : VecPet)
+	{
+		CObjectFunction::GetInstance().GetPetText_By_Key(itm, L"*");
+	}*/
 }
 
 VOID CExpr::PrintMonster(CONST std::vector<std::wstring>&)
@@ -168,4 +256,9 @@ VOID CExpr::PrintBag(CONST std::vector<std::wstring>&)
 		LOG_C_D(L"NodeBase=%X, Name=%s, Type=%X, Count=%d, ID=%X", itm.GetNodeBase(), itm.GetName().c_str(), itm.GetItemType(), itm.GetCount(), itm.GetId());
 		//CObjectFunction::GetInstance().FindItemAttribute_By_Key(itm, L"*", wsValue);
 	}
+}
+
+VOID CExpr::ScanBase(CONST std::vector<std::wstring>&)
+{
+	CAskScanBase().Start();
 }

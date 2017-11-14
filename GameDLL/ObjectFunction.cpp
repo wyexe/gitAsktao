@@ -65,48 +65,24 @@ BOOL CObjectFunction::IsShowGameUi_By_MapKey(_In_ CONST std::wstring& wsKeyText)
 	return pGameUi->IsShow();
 }
 
-CONST std::wstring CObjectFunction::GetPersonAttributeText_By_Key(_In_ CONST std::wstring& wsKey) CONST
+CONST std::wstring CObjectFunction::GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST
 {
 	std::wstring wsValue;
-	if (!FindPersonAttribute_By_Key(wsKey, wsValue))
+	if (!FindValue_By_Key_In_GameTree(dwAttributeTreeHead, wsKey, wsValue))
 	{
-		LOG_MSG_CF(L"GetPersonAttributeText_By_Key[%s] = FALSE", wsKey.c_str());
+		LOG_MSG_CF(L"GetAttributeText_By_Key[%s] = FALSE", wsKey.c_str());
 		return L"";
 	}
 
 	return wsValue;
 }
 
-DWORD CObjectFunction::GetPersonAttributeValue_By_Key(_In_ CONST std::wstring& wsKey) CONST
+DWORD CObjectFunction::GetAttributeValue_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST
 {
 	std::wstring wsValue;
-	if (!FindPersonAttribute_By_Key(wsKey, wsValue))
+	if (!FindValue_By_Key_In_GameTree(dwAttributeTreeHead, wsKey, wsValue))
 	{
-		LOG_MSG_CF(L"GetPersonAttributeValue_By_Key[%s] = FALSE", wsKey.c_str());
-		return 0;
-	}
-
-	return std::stoi(wsValue);
-}
-
-CONST std::wstring CObjectFunction::GetItemText_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST
-{
-	std::wstring wsValue;
-	if (!FindItemAttribute_By_Key(Item, wsKey, wsValue))
-	{
-		LOG_MSG_CF(L"GetItemText_By_Key[%s] = FALSE", wsKey.c_str());
-		return L"";
-	}
-
-	return wsValue;
-}
-
-DWORD CObjectFunction::GetItemValue_By_Key(_In_ CONST CBagItem& Item, _In_ CONST std::wstring& wsKey) CONST
-{
-	std::wstring wsValue;
-	if (!FindItemAttribute_By_Key(Item, wsKey, wsValue))
-	{
-		LOG_MSG_CF(L"GetItemValue_By_Key[%s] = FALSE", wsKey.c_str());
+		LOG_MSG_CF(L"GetAttributeValue_By_Key[%s] = FALSE", wsKey.c_str());
 		return 0;
 	}
 

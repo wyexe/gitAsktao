@@ -67,6 +67,15 @@
     <Filter Include="Core\Feature\Battle">
       <UniqueIdentifier>{7b8cfa1b-f39e-436c-a507-d39137db4211}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Text\ScanBase">
+      <UniqueIdentifier>{d94f27e6-1e8b-4fc4-bad8-a92a6a9f0957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Text\GameText">
+      <UniqueIdentifier>{8fac5278-2165-4713-8f62-ed0f66e49d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\Task">
+      <UniqueIdentifier>{cf7a21e0-b885-41c5-8a6d-9faeb2e21281}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -210,6 +219,21 @@
     <ClInclude Include="MonsterExtend.h">
       <Filter>Core\Object\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="AskScanBase.h">
+      <Filter>Core\Text\ScanBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameText.h">
+      <Filter>Core\Text\GameText</Filter>
+    </ClInclude>
+    <ClInclude Include="PetObject.h">
+      <Filter>Core\Object\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="PetExtend.h">
+      <Filter>Core\Object\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskObject.h">
+      <Filter>Core\Object\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -334,6 +358,21 @@
     </ClCompile>
     <ClCompile Include="MonsterExtend.cpp">
       <Filter>Core\Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AskScanBase.cpp">
+      <Filter>Core\Text\ScanBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameText.cpp">
+      <Filter>Core\Text\GameText</Filter>
+    </ClCompile>
+    <ClCompile Include="PetObject.cpp">
+      <Filter>Core\Object\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="PetExtend.cpp">
+      <Filter>Core\Object\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskObject.cpp">
+      <Filter>Core\Object\Task</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

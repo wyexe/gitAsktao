@@ -8,9 +8,12 @@
 CMonster::CMonster(_In_ DWORD dwIndex, _In_ DWORD dwNodeBase)
 {
 	_dwNodeBase = dwNodeBase;
-	_dwIndex = dwIndex;
-	auto pszMonsterName = reinterpret_cast<CHAR *>(GetNodeBase() + ¹ÖÎïÃû×ÖÆ«ÒÆ);
-	_wsName = MyTools::CCharacter::ASCIIToUnicode(std::string(pszMonsterName));
+	if (_dwNodeBase != NULL)
+	{
+		_dwIndex = dwIndex;
+		auto pszMonsterName = reinterpret_cast<CHAR *>(GetNodeBase() + ¹ÖÎïÃû×ÖÆ«ÒÆ + 0x4);
+		_wsName = MyTools::CCharacter::ASCIIToUnicode(std::string(pszMonsterName));
+	}
 }
 
 DWORD CMonster::GetId() CONST
@@ -71,5 +74,10 @@ VOID CMonster::UseItem_To_Target(_In_ CONST CMonster& Target, _In_ CONST CBagIte
 
 VOID CMonster::RunAway() CONST
 {
+	CCodeTransfer::PushPtrToMainThread([this] { CGameCALL::RunAway(GetId()); });
+}
 
+VOID CMonster::UseSkill(_In_ CONST CMonster& Target, _In_ em_SkillId emSkillId) CONST
+{
+	CCodeTransfer::PushPtrToMainThread([=] { CGameCALL::UseSKill(this->GetId(), Target.GetId(), emSkillId); });
 }

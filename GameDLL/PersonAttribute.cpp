@@ -9,7 +9,7 @@
 #define _SELF L"PersonAttribute.cpp"
 DWORD CPersonAttribute::GetHp() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"life");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(), L"life");
 }
 
 DWORD CPersonAttribute::GetMaxHP() CONST
@@ -19,7 +19,7 @@ DWORD CPersonAttribute::GetMaxHP() CONST
 
 DWORD CPersonAttribute::GetMp() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"mana");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"mana");
 }
 
 DWORD CPersonAttribute::GetMaxMp() CONST
@@ -29,70 +29,70 @@ DWORD CPersonAttribute::GetMaxMp() CONST
 
 DWORD CPersonAttribute::GetExp() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"exp");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"exp");
 }
 
 DWORD CPersonAttribute::GetMaxExp() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"exp_to_next_level");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"exp_to_next_level");
 }
 
 DWORD CPersonAttribute::GetTotalScore() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"total_score");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(), L"total_score");
 }
 
 std::wstring CPersonAttribute::GetName() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"name");
+	return CObjectFunction::GetInstance().GetAttributeText_By_Key(GetAttributePoint(), L"name");
 }
 
 DWORD CPersonAttribute::GetLevel() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"level");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"level");
 }
 
 DWORD CPersonAttribute::GetReputation() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"reputation");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"reputation");
 }
 
 std::wstring CPersonAttribute::GetPartyName() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"party");
+	return CObjectFunction::GetInstance().GetAttributeText_By_Key(GetAttributePoint(), L"party");
 }
 
 DWORD CPersonAttribute::GetPartyContrib() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"party/contrib");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"party/contrib");
 }
 
 DWORD CPersonAttribute::GetDaoXing() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"tao") / 360;
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"tao") / 360;
 }
 
 DWORD CPersonAttribute::GetPot() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"pot");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"pot");
 }
 
 DWORD CPersonAttribute::GetAttributePoint() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"attrib_point");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"attrib_point");
 }
 
 DWORD CPersonAttribute::GetPolarPoint() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"polar_point");
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"polar_point");
 }
 
 CPersonAttribute::CashContent CPersonAttribute::GetMoney() CONST
 {
 	CashContent Content =
 	{
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"cash"),
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"voucher")
+		CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"cash"),
+		CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"voucher")
 	};
 	return Content;
 }
@@ -100,14 +100,14 @@ CPersonAttribute::CashContent CPersonAttribute::GetMoney() CONST
 Point CPersonAttribute::GetPoint() CONST
 {
 	return Point(
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"x"),
-		CObjectFunction::GetInstance().GetPersonAttributeValue_By_Key(L"y"));
+		CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"x"),
+		CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributePoint(),L"y"));
 }
 
 std::wstring CPersonAttribute::GetMapName() CONST
 {
 	// MainThread Get MapName
-	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"map_name");
+	return CObjectFunction::GetInstance().GetAttributeText_By_Key(GetAttributePoint(), L"map_name");
 }
 
 std::wstring CPersonAttribute::GetCurrentLine()
@@ -122,10 +122,15 @@ BOOL CPersonAttribute::IsFighting() CONST
 
 std::wstring CPersonAttribute::GetFamily() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"family");
+	return CObjectFunction::GetInstance().GetAttributeText_By_Key(GetAttributePoint(), L"family");
 }
 
 std::wstring CPersonAttribute::GetFamilyMaster() CONST
 {
-	return CObjectFunction::GetInstance().GetPersonAttributeText_By_Key(L"master");
+	return CObjectFunction::GetInstance().GetAttributeText_By_Key(GetAttributePoint(), L"master");
+}
+
+DWORD CPersonAttribute::GetAttributeTreeHead() CONST
+{
+	return ReadDWORD(ReadDWORD(ReadDWORD(人物属性基址) + 人物属性偏移 + 0x4 + 0x4) + 0x4);
 }

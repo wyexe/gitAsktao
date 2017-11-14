@@ -40,12 +40,3 @@ std::function<std::wstring(CGameUi&)> CGameOffsetPtr::GetEditText()
 		return MyTools::CCharacter::ASCIIToUnicode(std::string(pszText));
 	};
 }
-
-std::function<std::wstring(CGameUi&)> CGameOffsetPtr::GetChoiceLineText()
-{
-	return [](CGameUi& GameUi)
-	{
-		auto pszText = reinterpret_cast<CHAR*>(GameUi.GetObj() + UI»»ÏßTEXTÆ«ÒÆ);
-		return MyTools::CCharacter::ASCIIToUnicode(std::string(pszText));
-	};
-}

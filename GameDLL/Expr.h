@@ -27,6 +27,8 @@ private:
 	virtual VOID PrintMonster(CONST std::vector<std::wstring>&);
 
 	virtual VOID PrintBag(CONST std::vector<std::wstring>&);
+
+	virtual VOID ScanBase(CONST std::vector<std::wstring>&);
 };
 
 

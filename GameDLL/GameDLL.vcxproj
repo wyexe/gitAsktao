@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\MyTools\MyTools\SocketBuffer.h" />
     <ClInclude Include="..\..\MyTools\MyTools\TimeTick.h" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
+    <ClInclude Include="AskScanBase.h" />
     <ClInclude Include="BagItem.h" />
     <ClInclude Include="BagItemAction.h" />
     <ClInclude Include="BagItemExtend.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="GameCALL.h" />
     <ClInclude Include="GameOffsetPtr.h" />
     <ClInclude Include="GameStruct.h" />
+    <ClInclude Include="GameText.h" />
     <ClInclude Include="GameUi.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterExtend.h" />
@@ -186,9 +188,12 @@
     <ClInclude Include="ObjectFunction.h" />
     <ClInclude Include="PersonAttribute.h" />
     <ClInclude Include="PetAttribute.h" />
+    <ClInclude Include="PetExtend.h" />
+    <ClInclude Include="PetObject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="GameVariable.h" />
+    <ClInclude Include="TaskObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\MyTools\MyTools\Character.cpp" />
@@ -213,6 +218,7 @@
     <ClCompile Include="..\..\MyTools\MyTools\PELoader.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\SocketBuffer.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\TimeTick.cpp" />
+    <ClCompile Include="AskScanBase.cpp" />
     <ClCompile Include="BagItem.cpp" />
     <ClCompile Include="BagItemAction.cpp" />
     <ClCompile Include="BagItemExtend.cpp" />
@@ -236,6 +242,7 @@
     <ClCompile Include="GameCALL.cpp" />
     <ClCompile Include="GameDLL.cpp" />
     <ClCompile Include="GameOffsetPtr.cpp" />
+    <ClCompile Include="GameText.cpp" />
     <ClCompile Include="GameUi.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterExtend.cpp" />
@@ -243,6 +250,8 @@
     <ClCompile Include="ObjectFunction.cpp" />
     <ClCompile Include="PersonAttribute.cpp" />
     <ClCompile Include="PetAttribute.cpp" />
+    <ClCompile Include="PetExtend.cpp" />
+    <ClCompile Include="PetObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -250,6 +259,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GameVariable.cpp" />
+    <ClCompile Include="TaskObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

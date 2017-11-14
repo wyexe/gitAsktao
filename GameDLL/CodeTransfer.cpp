@@ -30,12 +30,12 @@ VOID CCodeTransfer::Hook()
 
 	MyTools::CLdrHeader().InlineHook(RealPeekMessagePtr, _PeekMessage, reinterpret_cast<void **>(&_OldPeekMessagePtr));
 
-	if (ReadBYTE(Hook¼ì²â1) != 0xEB)
+	MyTools::CCharacter::WriteBYTE(ÓÎÏ·¼ì²â»ùÖ·, 0);
+	/*LOG_C_D(L"ÐÞ¸ÄHook¼ì²â1  Addr=%X", GetHookVirtualProtectAddr());
+	Action_In_HookVirtualProtect([]
 	{
-		LOG_C_D(L"ÐÞ¸ÄHook¼ì²â1  Addr=%X", GetHookVirtualProtectAddr());
-		Action_In_HookVirtualProtect([] {MyTools::CCharacter::WriteBYTE(Hook¼ì²â1, 0xEB); });
-		LOG_C_D(L"ÐÞ¸Ä%s", ReadBYTE(Hook¼ì²â1) != 0xEB ? L"Ê§°Ü" : L"³É¹¦");
-	}
+		
+	});*/
 }
 
 VOID CCodeTransfer::UnHook()
@@ -102,13 +102,13 @@ VOID CCodeTransfer::Action_In_HookVirtualProtect(_In_ std::function<VOID(VOID)> 
 	//LOG_C_D(L"dwOldHookVirtualProtectValue=[%X,%X]", dwOldHookVirtualProtectValue1, dwOldHookVirtualProtectValue2);
 
 	DWORD dwProtect = 0;
-	::VirtualProtect(reinterpret_cast<LPVOID>(»Ö¸´VirtualProtect), 0x8, PAGE_EXECUTE_READWRITE, &dwProtect);
+	::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, PAGE_EXECUTE_READWRITE, &dwProtect);
 	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = 0x4DB8;
 	*reinterpret_cast<BYTE*>(GetHookVirtualProtectAddr() + 0x4) = 0x0000;
 	Ptr();
 	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = dwOldHookVirtualProtectValue1;
 	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x4) = dwOldHookVirtualProtectValue2;
-	::VirtualProtect(reinterpret_cast<LPVOID>(»Ö¸´VirtualProtect), 0x8, dwProtect, &dwProtect);
+	::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, dwProtect, &dwProtect);
 }
 
 DWORD CCodeTransfer::GetHookVirtualProtectAddr()

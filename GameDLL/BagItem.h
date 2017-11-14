@@ -27,6 +27,9 @@ public:
 	// ID
 	DWORD GetId() CONST;
 
+	//
+	DWORD GetAttributeTreeHead() CONST;
+
 public:
 	VOID UseItem_NoFight();
 private:
