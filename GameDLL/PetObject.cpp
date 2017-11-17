@@ -14,7 +14,7 @@ CPetObject::CPetObject(_In_ DWORD dwNodeBase)
 
 DWORD CPetObject::GetId() CONST
 {
-	return ReadDWORD(GetNodeBase() + 0xC);
+	return CObjectFunction::GetInstance().GetAttributeValue_By_Key(GetAttributeTreeHead(), L"id");
 }
 
 DWORD CPetObject::GetObj() CONST

@@ -7,6 +7,23 @@
 class CPersonAttribute : public CBaseObjectAttribute
 {
 public:
+	enum class em_Family
+	{
+		em_Family_UnKnow,
+		em_Family_金,
+		em_Family_木,
+		em_Family_水,
+		em_Family_火,
+		em_Family_土,
+	};
+
+	enum class em_PersonStatus
+	{
+		Normal,
+		VerCode,
+		War,
+	};
+public:
 	CPersonAttribute() = default;
 	~CPersonAttribute() = default;
 
@@ -76,6 +93,10 @@ public:
 
 	// 门派师傅
 	std::wstring GetFamilyMaster() CONST;
+
+	em_Family	GetFamilyType() CONST;
+
+	em_PersonStatus GetPersonStatus() CONST;
 private:
 	DWORD GetAttributeTreeHead() CONST;
 };

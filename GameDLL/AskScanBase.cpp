@@ -145,21 +145,45 @@ VOID CAskScanBase::Start() CONST
 	dwBase = MyTools::CLSearchBase::FindBase("8B??8D??????????C7??????0000000000008B??043B", 0x6D0187 - 0x6D0189, 2, 0, Ask_Client);
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	任务遍历偏移	0x%X", dwBase);
 
-	// ...
-	dwBase = MyTools::CLSearchBase::FindBase("", 0x4E49E9 - 0x4E49F3, 2, 0, Ask_Client);
-	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	...	0x%X", dwBase);
+	// 队友名字UI偏移
+	dwBase = MyTools::CLSearchBase::FindBase_ByCALL("C2??????????????8B????0C00000033??F3??75??6868020000", 0x00962235 - 0x96221E, dwClient, 1, 0, Ask_Client, 0x4B6A5F - 0x4B6A20 - 0x2);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	队友名字UI偏移	0x%X", dwBase);
 
-	// ...
-	dwBase = MyTools::CLSearchBase::FindBase("", 0x4E49E9 - 0x4E49F3, 2, 0, Ask_Client);
-	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	...	0x%X", dwBase);
+	// 战斗状态基址
+	dwBase = MyTools::CLSearchBase::FindBase("83C4??C3833D????????0175", 0x4434D2 - 0x4434D6, 2, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	战斗状态基址	0x%X", dwBase);
 
-	// ...
-	dwBase = MyTools::CLSearchBase::FindBase("", 0x4E49E9 - 0x4E49F3, 2, 0, Ask_Client);
-	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	...	0x%X", dwBase);
+	// 队伍数量基址
+	dwBase = MyTools::CLSearchBase::FindBase("A1????????83????00??8B??????A1", 0x9E3B40 - 0x9E3B40, 1, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	队伍数量基址	0x%X", dwBase);
 
-	// ...
-	dwBase = MyTools::CLSearchBase::FindBase("", 0x4E49E9 - 0x4E49F3, 2, 0, Ask_Client);
-	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	...	0x%X", dwBase);
+	// 队伍数量偏移
+	dwBase = MyTools::CLSearchBase::FindBase("A1????????83????00??8B??????A1", 0x9E3B40 - 0x9E3B45, 2, 0, Ask_Client, 0xFF);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	队伍数量偏移	0x%X", dwBase);
+
+	// 遍历NPC基址
+	dwBase = MyTools::CLSearchBase::FindBase("B801000000??C2????8B??????????8B??8B??????8B", 0x6B3257 - 0x6B3260, 2, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	遍历NPC基址	0x%X", dwBase);
+
+	// NPC遍历偏移
+	dwBase = MyTools::CLSearchBase::FindBase("83C4??C2????8B??????????8B????8D??????0000", 0x641011 - 0x641017, 2, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	NPC遍历偏移	0x%X", dwBase);
+
+	// Npc选项菜单点击偏移
+	dwBase = MyTools::CLSearchBase::FindBase("8A003C216A000F", 0x4A82D1 - 0x4A82E3, 2, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	Npc选项菜单点击偏移	0x%X", dwBase);
+
+	// 人物补血基址
+	dwBase = MyTools::CLSearchBase::FindBase("8B0D????????E8????????85C07407??01000000", 0x90DD66 - 0x90DD66, 2, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	人物补血基址	0x%X", dwBase);
+
+	// 人物补血CALL
+	dwBase = MyTools::CLSearchBase::FindCALL("8B0D????????E8????????85C07407??01000000", 0x90DD66 - 0x90DD6C, dwClient, 1, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	人物补血CALL	0x%X", dwBase);
+
+	// 跳过对话CALL
+	dwBase = MyTools::CLSearchBase::FindCALL("33??68FF0000008B??8D??????????????89", 0x7E968F - 0x7E96DC, dwClient, 1, 0, Ask_Client);
+	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	跳过对话CALL	0x%X", dwBase);
 
 	// ...
 	dwBase = MyTools::CLSearchBase::FindBase("", 0x4E49E9 - 0x4E49F3, 2, 0, Ask_Client);

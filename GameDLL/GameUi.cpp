@@ -55,6 +55,21 @@ VOID CGameUi::SetName()
 
 VOID CGameUi::Click() CONST
 {
-	LOG_C_D(L"ClickDlg[%s]", GetName().c_str());;
+	LOG_C_D(L"ClickDlg[%X, %s]", GetObj(), GetName().c_str());;
 	CCodeTransfer::PushPtrToMainThread([this] { CGameCALL::ClickChildGameUi(GetObj()); });
+}
+
+std::wstring CGameUi::GetTeamMemberName()
+{
+	auto NamePtr = GetObj() + ¶ÓÓÑÃû×ÖUIÆ«ÒÆ + 0x4;
+	if (ReadBYTE(NamePtr + 0x10) == 0)
+		return L"";
+
+	return MyTools::CCharacter::ASCIIToUnicode(ReadBYTE(NamePtr + 0x10) > 0xF ? reinterpret_cast<CONST CHAR*>(ReadDWORD(NamePtr)) : reinterpret_cast<CONST CHAR*>(NamePtr));
+}
+
+VOID CGameUi::ClickOption() CONST
+{
+	// TalkMenuDlg
+	CCodeTransfer::PushPtrToMainThread([this] { CGameCALL::ClickNpcMenu(this->GetObj()); });
 }

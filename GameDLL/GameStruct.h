@@ -35,7 +35,16 @@
 #define 宠物补血CALL			0x53E950
 #define 任务遍历基址			0xD9A0D0
 #define 任务遍历偏移			0x94
-
+#define 队友名字UI偏移		0x20C
+#define 战斗状态基址			0xD3AF4C
+#define 队伍数量基址			0xD9A0F8
+#define 队伍数量偏移			0x1C
+#define 遍历NPC基址			0xD99CE8
+#define NPC遍历偏移			0x204
+#define Npc选项菜单点击偏移	0x13C
+#define 人物补血基址			0xD963F0
+#define 人物补血CALL			0x53E950
+#define 跳过对话CALL			0x46DEA0
 
 ///----基本不变的偏移-------------------------
 #define 战斗中是否队友偏移	0x54
@@ -45,6 +54,8 @@
 #define 怪物ID偏移			0x8
 #define 恢复VirtualProtect  0x77A40028
 #define NTDLL地址			0x77A20000
+#define NPC名字虚函数偏移	0xE8
+#define NPCID虚函数偏移		0xE4
 
 #define ReadDWORD(Addr) MyTools::CCharacter::ReadDWORD(Addr)
 #define ReadBYTE(Addr)  MyTools::CCharacter::ReadBYTE(Addr)
@@ -60,6 +71,7 @@ enum em_SkillId
 	em_SkillId_金_刀光剑影 = 0xC,
 	em_SkillId_金_金虹贯日 = 0xD,
 	em_SkillId_金_流光异彩 = 0xE,
+	em_SkillId_金_逆天残刃 = 0xF,
 	em_SkillId_金_流连忘返 = 0x15,
 	em_SkillId_金_得意忘形 = 0x16,
 	em_SkillId_金_如痴如醉 = 0x17,
@@ -69,6 +81,31 @@ enum em_SkillId
 	em_SkillId_金_九牛二虎 = 0x21,
 	em_SkillId_金_如虎添翼 = 0x22,
 	em_SkillId_力破千军	  = 0x1F5,
+	em_SkillId_水_滴水石穿 = 0x6E,
+	em_SkillId_水_雨恨云愁 = 0x6F,
+	em_SkillId_水_悬河泻水 = 0x70,
+	em_SkillId_水_怒波狂涛 = 0x71,
+	em_SkillId_水_搅海翻江 = 0x72,
+	em_SkillId_水_防微杜渐 = 0x83,
+	em_SkillId_水_铁骨铮铮 = 0x84,
+	em_SkillId_水_兵来将挡 = 0x85,
+	em_SkillId_水_铜墙铁壁 = 0x86,
+	em_SkillId_水_天地浑元 = 0x87,
+	em_SkillId_水_三九严寒 = 0x79,
+	em_SkillId_水_天寒地冻 = 0x7A,
+	em_SkillId_水_冰冻三尺 = 0x7B,
+	em_SkillId_水_极地冰寒 = 0x7C,
+	em_SkillId_水_包罗万象 = 0x7D,
+	em_SkillId_木_摘叶飞花 = 0x3D,
+	em_SkillId_木_飞柳仙矢 = 0x3E,
+	em_SkillId_木_盘根错节 = 0x3F,
+	em_SkillId_木_落英缤纷 = 0x40,
+	em_SkillId_木_鬼舞枯藤 = 0x41,
+	em_SkillId_木_见血封喉 = 0x47,
+	em_SkillId_木_蛇口蜂针 = 0x48,
+	em_SkillId_木_鹤顶红粉 = 0x49,
+	em_SkillId_木_蝎尾蛇涎 = 0x4A,
+	em_SkillId_木_万蚁噬心 = 0x4B,
 };
 
 struct Point

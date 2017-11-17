@@ -120,6 +120,39 @@ UINT CObjectExtend::GetVecTask(_Out_ std::vector<CTaskObject>& VecTask, _In_ std
 	return VecTask.size();
 }
 
+UINT CObjectExtend::GetVecNpc(_Out_ std::vector<CNpcObject>& VecNpc, _In_ std::function<BOOL(CONST CNpcObject&)> FilterPtr) CONST
+{
+	std::queue<DWORD> QueNode;
+	QueNode.push(ReadDWORD(ReadDWORD(ReadDWORD(±éÀúNPC»ùÖ·) + NPC±éÀúÆ«ÒÆ) + 0x4));
+
+	int nCount = 0;
+	while (!QueNode.empty() && ++nCount < 1000)
+	{
+		auto dwAddr = QueNode.front();
+		QueNode.pop();
+
+		if(ReadBYTE(dwAddr + 0x21) == 1)
+			continue;
+
+		QueNode.push(ReadDWORD(dwAddr + 0x0));
+		QueNode.push(ReadDWORD(dwAddr + 0x8));
+
+		if (FilterPtr == nullptr)
+		{
+			VecNpc.emplace_back(dwAddr);
+			continue;
+		}
+		
+		CNpcObject Npc(dwAddr);
+		if (FilterPtr(Npc))
+		{
+			VecNpc.push_back(std::move(Npc));
+			return 1;
+		}
+	}
+	return VecNpc.size();
+}
+
 UINT CObjectExtend::GetVecMonster(_Out_ std::vector<CMonster>& VecMonster) CONST
 {
 	VecMonster.clear();

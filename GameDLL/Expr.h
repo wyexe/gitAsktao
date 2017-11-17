@@ -29,6 +29,8 @@ private:
 	virtual VOID PrintBag(CONST std::vector<std::wstring>&);
 
 	virtual VOID ScanBase(CONST std::vector<std::wstring>&);
+
+	virtual VOID PrintNpc(CONST std::vector<std::wstring>&);
 };
 
 

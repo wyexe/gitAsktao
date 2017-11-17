@@ -15,6 +15,8 @@
 #include "GameText.h"
 #include "PetObject.h"
 #include "PetExtend.h"
+#include "NpcObject.h"
+
 
 #define _SELF L"Expr.cpp"
 CExpr::CExpr()
@@ -43,6 +45,8 @@ std::vector<MyTools::ExpressionFunPtr>& CExpr::GetVec()
 		{ std::bind(&CExpr::PrintMonster,this, std::placeholders::_1),L"PrintMonster" },
 		{ std::bind(&CExpr::PrintBag,this, std::placeholders::_1),L"PrintBag" },
 		{ std::bind(&CExpr::ScanBase,this, std::placeholders::_1),L"ScanBase" },
+		{ std::bind(&CExpr::PrintNpc,this, std::placeholders::_1),L"PrintNpc" },
+		
 	};
 
 	return Vec;
@@ -226,12 +230,13 @@ VOID CExpr::Test(CONST std::vector<std::wstring>&)
 		break;
 	}
 	*/
-	/*std::vector<CPetObject> VecPet;
-	CObjectFunction::GetInstance().GetVecPet(VecPet, nullptr);
-	for (auto& itm : VecPet)
+
+	auto pBtn = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"AutoFightDlg.ContinueBtn");
+	if (pBtn != nullptr)
 	{
-		CObjectFunction::GetInstance().GetPetText_By_Key(itm, L"*");
-	}*/
+		LOG_MSG_CF(L"pBtn=%X", pBtn);
+		pBtn->Click();
+	}
 }
 
 VOID CExpr::PrintMonster(CONST std::vector<std::wstring>&)
@@ -261,4 +266,15 @@ VOID CExpr::PrintBag(CONST std::vector<std::wstring>&)
 VOID CExpr::ScanBase(CONST std::vector<std::wstring>&)
 {
 	CAskScanBase().Start();
+}
+
+VOID CExpr::PrintNpc(CONST std::vector<std::wstring>&)
+{
+	std::vector<CNpcObject> VecNpc;
+	CObjectFunction::GetInstance().GetVecNpc(VecNpc, nullptr);
+
+	for (auto& itm : VecNpc)
+	{
+		LOG_C_D(L"itm.NodeBase=%X, Object=%X, ID=%X, itm.Name=%s", itm.GetNodeBase(), itm.GetObj(), itm.GetId(), itm.GetName().c_str());
+	}
 }

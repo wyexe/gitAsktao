@@ -18,6 +18,10 @@ public:
 	VOID SetName();
 
 	VOID Click() CONST;
+
+	std::wstring GetTeamMemberName();
+
+	VOID ClickOption() CONST;
 };
 
 

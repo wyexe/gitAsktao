@@ -9,6 +9,7 @@
 #include "BagItem.h"
 #include "PetObject.h"
 #include "TaskObject.h"
+#include "NpcObject.h"
 
 class CObjectExtend
 {
@@ -33,6 +34,9 @@ public:
 
 	//
 	UINT GetVecTask(_Out_ std::vector<CTaskObject>& VecTask, _In_ std::function<BOOL(CONST CTaskObject&)> FilterPtr) CONST;
+
+	//
+	UINT GetVecNpc(_Out_ std::vector<CNpcObject>& VecNpc, _In_ std::function<BOOL(CONST CNpcObject&)> FilterPtr) CONST;
 private:
 	//
 	VOID TraverseGameUi(_In_ DWORD dwNode, _Out_ std::vector<DWORD>& VecGameUiNode) CONST;

@@ -204,3 +204,108 @@ VOID CGameCALL::PetAddMp(_In_ DWORD dwPetObject)
 		::MessageBoxW(NULL, L"PetAddHp", L"", NULL);
 	}
 }
+
+VOID CGameCALL::OpenNpc(_In_ DWORD dwNpcId)
+{
+	__try
+	{
+		CONST static CHAR szText[] = { "id = %d" };
+		_SendPtr(dwNpcId, szText, 0x2050);
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		::MessageBoxW(NULL, L"OpenNpc", L"", NULL);
+	}
+}
+
+VOID CGameCALL::ClickNpcMenu(_In_ DWORD dwGameUiObject)
+{
+	__try
+	{
+		__asm
+		{
+			MOV EBX, dwGameUiObject;
+			MOV EAX, DWORD PTR DS : [EBX + Npc选项菜单点击偏移];
+			PUSH 0;
+			MOV ECX, EBX;
+			CALL EAX;
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		::MessageBoxW(NULL, L"ClickNpcMenu", L"", NULL);
+	}
+}
+
+VOID CGameCALL::PersonAddHp()
+{
+	__try
+	{
+		static CONST CHAR szText[] = { "life" };
+		__asm
+		{
+			MOV ECX, 人物属性基址;
+			MOV ECX, DWORD PTR DS : [ECX];
+
+			PUSH 0;
+			PUSH 0x64;
+			LEA EAX, szText;
+			PUSH EAX;
+			PUSH ECX;
+
+			MOV ECX, 人物补血基址;
+			MOV EAX, 人物补血CALL;
+			CALL EAX;
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		::MessageBoxW(NULL, L"PersonAddHp", L"", NULL);
+	}
+}
+
+VOID CGameCALL::PersonAddMp()
+{
+	__try
+	{
+		static CONST CHAR szText[] = { "mana" };
+		__asm
+		{
+			MOV ECX, 人物属性基址;
+			MOV ECX, DWORD PTR DS : [ECX];
+
+			PUSH 0;
+			PUSH 0x64;
+			LEA EAX, szText;
+			PUSH EAX;
+			PUSH ECX;
+
+			MOV ECX, 人物补血基址;
+			MOV EAX, 人物补血CALL;
+			CALL EAX;
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		::MessageBoxW(NULL, L"PersonAddMp", L"", NULL);
+	}
+}
+
+VOID CGameCALL::SkipTalk(_In_ DWORD dwGameUiObject)
+{
+	__try
+	{
+		// TalkNoMenuDlg
+		__asm
+		{
+			MOV ECX, dwGameUiObject;
+			MOV EAX, 跳过对话CALL;
+			CALL EAX;
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		::MessageBoxW(NULL, L"SkipTalk", L"", NULL);
+	}
+}
+

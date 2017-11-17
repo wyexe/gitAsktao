@@ -11,11 +11,10 @@ VOID CObjectFunction::AbstractMethod()
 
 CGameUi* CObjectFunction::FindGameUi_For_StaticMap_By_MapKey(_In_ CONST std::wstring& wsKeyText)
 {
-	std::lock_guard<std::mutex> Lock(_MtxGameUi);
-
 	if (_MapGameUi.empty())
 		RefreshStaticMapGameUi();
 
+	std::lock_guard<std::mutex> Lock(_MtxGameUi);
 
 	auto itr = _MapGameUi.find(wsKeyText);
 	return itr == _MapGameUi.end() ? nullptr : &itr->second;

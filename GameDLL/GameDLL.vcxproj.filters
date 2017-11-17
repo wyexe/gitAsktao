@@ -76,6 +76,15 @@
     <Filter Include="Core\Object\Task">
       <UniqueIdentifier>{cf7a21e0-b885-41c5-8a6d-9faeb2e21281}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Script\KillMobster">
+      <UniqueIdentifier>{c849ebc0-dd49-40b0-9a7d-4e219ec14b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\Team">
+      <UniqueIdentifier>{eb8a5f37-7022-47d4-8390-42792de06ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\Npc">
+      <UniqueIdentifier>{1016269d-9d35-4864-9158-dc7470a0d47c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -234,6 +243,18 @@
     <ClInclude Include="TaskObject.h">
       <Filter>Core\Object\Task</Filter>
     </ClInclude>
+    <ClInclude Include="KillMobsterTask.h">
+      <Filter>Core\Script\KillMobster</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleAction.h">
+      <Filter>Core\Feature\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="TeamAttribute.h">
+      <Filter>Core\Object\Team</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcObject.h">
+      <Filter>Core\Object\Npc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -373,6 +394,18 @@
     </ClCompile>
     <ClCompile Include="TaskObject.cpp">
       <Filter>Core\Object\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="KillMobsterTask.cpp">
+      <Filter>Core\Script\KillMobster</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleAction.cpp">
+      <Filter>Core\Feature\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="TeamAttribute.cpp">
+      <Filter>Core\Object\Team</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcObject.cpp">
+      <Filter>Core\Object\Npc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
