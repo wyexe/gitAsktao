@@ -224,10 +224,10 @@ VOID CGameCALL::ClickNpcMenu(_In_ DWORD dwGameUiObject)
 	{
 		__asm
 		{
-			MOV EBX, dwGameUiObject;
+			MOV ECX, dwGameUiObject;
+			MOV EBX, DWORD PTR DS : [ECX];
 			MOV EAX, DWORD PTR DS : [EBX + Npc选项菜单点击偏移];
 			PUSH 0;
-			MOV ECX, EBX;
 			CALL EAX;
 		}
 	}

@@ -64,11 +64,15 @@ BOOL CObjectFunction::IsShowGameUi_By_MapKey(_In_ CONST std::wstring& wsKeyText)
 	return pGameUi->IsShow();
 }
 
-CONST std::wstring CObjectFunction::GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST
+CONST std::wstring CObjectFunction::GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey, _In_ BOOL bForcePass) CONST
 {
 	std::wstring wsValue;
 	if (!FindValue_By_Key_In_GameTree(dwAttributeTreeHead, wsKey, wsValue))
 	{
+		if (bForcePass)
+			return L"";
+
+		FindValue_By_Key_In_GameTree(dwAttributeTreeHead, L"*", wsValue);
 		LOG_MSG_CF(L"GetAttributeText_By_Key[%s] = FALSE", wsKey.c_str());
 		return L"";
 	}

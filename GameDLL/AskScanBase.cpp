@@ -102,7 +102,7 @@ VOID CAskScanBase::Start() CONST
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	走路偏移	0x%X", dwBase);
 
 	// UI是否显示偏移
-	dwBase = MyTools::CLSearchBase::FindBase("F7??????00000001000074088D", 0x45D25E - 0x45D280, 2, 0, Ask_Client);
+	dwBase = MyTools::CLSearchBase::FindBase("6A0068????????8B??E8????????6A0068????????8B??89??????0000E8????????6A00??68", 0x7D55D8 - 0x7D55EF, 2, 0, Ask_Client);
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	UI是否显示偏移 0x%X", dwBase);
 
 	// 鼠标点击CALL

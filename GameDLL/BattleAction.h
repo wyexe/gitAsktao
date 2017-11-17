@@ -13,7 +13,9 @@ public:
 	CBattleAction();
 	~CBattleAction() = default;
 
-	BOOL Fight(_In_ DWORD dwOption);
+	BOOL Fight();
+
+	VOID ContinueAutoFight() CONST;
 private:
 	VOID RefreshData();
 

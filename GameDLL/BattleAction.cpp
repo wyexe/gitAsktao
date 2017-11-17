@@ -3,11 +3,15 @@
 #include <MyTools/Log.h>
 #include <MyTools/Character.h>
 #include <MyTools/CLPublic.h>
+#include <MyTools/TimeTick.h>
 #include "PersonAttribute.h"
 #include "PetObject.h"
 #include "PetExtend.h"
 #include "ObjectFunction.h"
 #include "BattleAttribute.h"
+#include "CodeTransfer.h"
+#include "GameCALL.h"
+#include "StatusCheck.h"
 
 #define _SELF L"BattleAction.cpp"
 CBattleAction::CBattleAction()
@@ -16,14 +20,30 @@ CBattleAction::CBattleAction()
 	_emPersonFamily = _PersonAttribute.GetFamilyType();
 }
 
-BOOL CBattleAction::Fight(_In_ DWORD dwOption)
+BOOL CBattleAction::Fight()
 {
-	CBattleAttribute BattleAttribute;
 	LOG_C_D(L"开始战斗");
+
 	while (g_IsRuning && _PersonAttribute.IsFighting())
 	{
 		CObjectFunction::GetInstance().RefreshStaticMapGameUi();
-		if (BattleAttribute.IsExistFightMeMenu())
+		//auto pAutoFightDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"AutoFightDlg.ContinueBtn");
+		auto pTalkMenuDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TalkNoMenuDlg");
+		if (pTalkMenuDlg != nullptr && pTalkMenuDlg->IsShow())
+		{
+			LOG_C_D(L"出现剧情对话……");
+			pTalkMenuDlg->Click();
+			::Sleep(1000);
+			continue;
+		}
+		//if (pAutoFightDlg != nullptr && pAutoFightDlg->IsShow())
+		//{
+		//	LOG_C_D(L"自动战斗中……");
+		//	::Sleep(3 * 1000);
+		//	continue;
+		//}
+		
+		/*if (BattleAttribute.IsExistFightMeMenu())
 		{
 			LOG_C_D(L"轮到我们行动了!");
 			switch (_emPersonFamily)
@@ -51,12 +71,24 @@ BOOL CBattleAction::Fight(_In_ DWORD dwOption)
 			}
 
 			Fight_Classes_Pet();
-		}
+		}*/
+		
 		::Sleep(1000);
 	}
 
+	CStatusCheck().CheckHealth();
 	LOG_C_D(L"战斗结束");
 	return TRUE;
+}
+
+VOID CBattleAction::ContinueAutoFight() CONST
+{
+	LOG_C_D(L"续一波自动战斗");
+	auto pAutoFightDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"AutoFightDlg.ContinueBtn");
+	if (pAutoFightDlg == nullptr)
+		return;
+
+	pAutoFightDlg->Click();
 }
 
 VOID CBattleAction::RefreshData()

@@ -16,7 +16,7 @@
 #include "PetObject.h"
 #include "PetExtend.h"
 #include "NpcObject.h"
-
+#include "KillMobsterTask.h"
 
 #define _SELF L"Expr.cpp"
 CExpr::CExpr()
@@ -46,7 +46,9 @@ std::vector<MyTools::ExpressionFunPtr>& CExpr::GetVec()
 		{ std::bind(&CExpr::PrintBag,this, std::placeholders::_1),L"PrintBag" },
 		{ std::bind(&CExpr::ScanBase,this, std::placeholders::_1),L"ScanBase" },
 		{ std::bind(&CExpr::PrintNpc,this, std::placeholders::_1),L"PrintNpc" },
-		
+		{ std::bind(&CExpr::PrintTask,this, std::placeholders::_1),L"PrintTask" },
+		{ std::bind(&CExpr::Start,this, std::placeholders::_1),L"Start" },
+		{ std::bind(&CExpr::Stop,this, std::placeholders::_1),L"Stop" },
 	};
 
 	return Vec;
@@ -86,7 +88,7 @@ VOID CExpr::PrintUi(CONST std::vector<std::wstring>&)
 		DWORD dwObject = ReadDWORD(itm + 0x8);
 		CHAR* pszText = reinterpret_cast<CHAR*>(dwObject + 0x94);
 		std::wstring wsUiName = MyTools::CCharacter::ASCIIToUnicode(pszText);
-		LOG_C_D(L"itm.Show=%d, Obj=%X,Name=%s", ReadBYTE(dwObject + 0x40), dwObject, wsUiName.c_str());
+		LOG_C_D(L"itm.Show=[%d,%d], Obj=%X,Name=%s", ReadBYTE(dwObject + 0x40), ReadDWORD(dwObject + UIÊÇ·ñÏÔÊ¾Æ«ÒÆ), dwObject, wsUiName.c_str());
 
 
 		std::vector<DWORD> VecObject;
@@ -277,4 +279,29 @@ VOID CExpr::PrintNpc(CONST std::vector<std::wstring>&)
 	{
 		LOG_C_D(L"itm.NodeBase=%X, Object=%X, ID=%X, itm.Name=%s", itm.GetNodeBase(), itm.GetObj(), itm.GetId(), itm.GetName().c_str());
 	}
+}
+
+VOID CExpr::PrintTask(CONST std::vector<std::wstring>&)
+{
+	std::vector<CTaskObject> VecTask;
+	CObjectFunction::GetInstance().GetVecTask(VecTask, nullptr);
+	for (auto& itm : VecTask)
+	{
+		LOG_C_D(L"Task.Name=%s, Content=%s", itm.GetName().c_str(), itm.GetTaskPrompt().c_str());
+	}
+}
+
+VOID CExpr::Start(CONST std::vector<std::wstring>&)
+{
+	std::thread t([] 
+	{
+		CKillMobsterTask KillMobsterTask;
+		KillMobsterTask.Run();
+	});
+	t.detach();
+}
+
+VOID CExpr::Stop(CONST std::vector<std::wstring>&)
+{
+	g_IsRuning = FALSE;
 }

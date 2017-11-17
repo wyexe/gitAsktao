@@ -31,6 +31,12 @@ private:
 	virtual VOID ScanBase(CONST std::vector<std::wstring>&);
 
 	virtual VOID PrintNpc(CONST std::vector<std::wstring>&);
+
+	virtual VOID PrintTask(CONST std::vector<std::wstring>&);
+
+	virtual VOID Start(CONST std::vector<std::wstring>&);
+
+	virtual VOID Stop(CONST std::vector<std::wstring>&);
 };
 
 

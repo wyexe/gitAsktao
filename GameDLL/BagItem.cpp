@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "BagItem.h"
 #include <MyTools/Character.h>
+#include <MyTools/Log.h>
 #include "ObjectFunction.h"
 #include "CodeTransfer.h"
 #include "GameCALL.h"
 
+#define _SELF L"BagItem.cpp"
 CBagItem::CBagItem(_In_ DWORD dwNodeBase)
 {
 	_dwNodeBase = dwNodeBase;
@@ -55,5 +57,6 @@ DWORD CBagItem::GetAttributeTreeHead() CONST
 
 VOID CBagItem::UseItem_NoFight()
 {
+	LOG_C_D(L"非战斗下使用物品[%s]", GetName().c_str());
 	CCodeTransfer::PushPtrToMainThread([this] { CGameCALL::UseItem_NoFight(GetId()); });
 }

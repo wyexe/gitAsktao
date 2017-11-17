@@ -21,7 +21,7 @@ DWORD CGameUi::GetObj() CONST
 
 BOOL CGameUi::IsShow() CONST
 {
-	return ReadBYTE(GetObj() + UI是否显示偏移) != 0;
+	return ReadDWORD(GetObj() + UI是否显示偏移) != 0;
 }
 
 BOOL CGameUi::IsShow_Fight() CONST

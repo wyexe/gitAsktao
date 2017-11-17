@@ -85,6 +85,9 @@
     <Filter Include="Core\Object\Npc">
       <UniqueIdentifier>{1016269d-9d35-4864-9158-dc7470a0d47c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Feature\Check">
+      <UniqueIdentifier>{ba5bf054-cd89-4ff3-a3db-e69b3faab3f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -255,6 +258,12 @@
     <ClInclude Include="NpcObject.h">
       <Filter>Core\Object\Npc</Filter>
     </ClInclude>
+    <ClInclude Include="TaskExtend.h">
+      <Filter>Core\Object\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusCheck.h">
+      <Filter>Core\Feature\Check</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -406,6 +415,12 @@
     </ClCompile>
     <ClCompile Include="NpcObject.cpp">
       <Filter>Core\Object\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskExtend.cpp">
+      <Filter>Core\Object\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusCheck.cpp">
+      <Filter>Core\Feature\Check</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

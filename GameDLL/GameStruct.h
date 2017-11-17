@@ -25,7 +25,7 @@
 #define 走路基址				0xD9ABB4
 #define 走路偏移				0x198
 #define 鼠标点击CALL			0x45CE60
-#define UI是否显示偏移		0x194
+#define UI是否显示偏移		0x37C
 #define 游戏检测基址			0xD9DE44
 #define 寻路CALL				0x461680
 #define 寻路Buffer偏移		0x1E0

@@ -30,7 +30,7 @@ public:
 
 public:
 	//
-	CONST std::wstring	GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST;
+	CONST std::wstring	GetAttributeText_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey, _In_ BOOL bForcePass = FALSE) CONST;
 
 	//
 	DWORD				GetAttributeValue_By_Key(_In_ DWORD dwAttributeTreeHead, _In_ CONST std::wstring& wsKey) CONST;
