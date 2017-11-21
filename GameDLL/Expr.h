@@ -4,6 +4,7 @@
 #include "GameStruct.h"
 #include <MyTools/CLExpression.h>
 #include <MyTools/ClassInstance.h>
+#include <MyTools/CLHook.h>
 
 class CExpr : MyTools::CExprFunBase, public MyTools::CClassInstance<CExpr>
 {
@@ -37,6 +38,10 @@ private:
 	virtual VOID Start(CONST std::vector<std::wstring>&);
 
 	virtual VOID Stop(CONST std::vector<std::wstring>&);
+
+	virtual VOID PrintPet(CONST std::vector<std::wstring>&);
+private:
+	MyTools::MYHOOK_CONTENT _HookContent;
 };
 
 

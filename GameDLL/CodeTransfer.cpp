@@ -30,12 +30,11 @@ VOID CCodeTransfer::Hook()
 
 	MyTools::CLdrHeader().InlineHook(RealPeekMessagePtr, _PeekMessage, reinterpret_cast<void **>(&_OldPeekMessagePtr));
 
-	MyTools::CCharacter::WriteBYTE(ÓÎÏ·¼ì²â»ùÖ·, 0);
-	/*LOG_C_D(L"ÐÞ¸ÄHook¼ì²â1  Addr=%X", GetHookVirtualProtectAddr());
+	MyTools::CCharacter::WriteDWORD(ÓÎÏ·¼ì²â»ùÖ·, 0);
 	Action_In_HookVirtualProtect([]
 	{
-		
-	});*/
+
+	});
 }
 
 VOID CCodeTransfer::UnHook()
@@ -98,17 +97,21 @@ BOOL WINAPI CCodeTransfer::_PeekMessage(_Out_ LPMSG lpMsg, _In_opt_ HWND hWnd, _
 VOID CCodeTransfer::Action_In_HookVirtualProtect(_In_ std::function<VOID(VOID)> Ptr)
 {
 	DWORD dwOldHookVirtualProtectValue1 = ReadDWORD(GetHookVirtualProtectAddr());
-	DWORD dwOldHookVirtualProtectValue2 = ReadDWORD(GetHookVirtualProtectAddr() + 0x4);
-	//LOG_C_D(L"dwOldHookVirtualProtectValue=[%X,%X]", dwOldHookVirtualProtectValue1, dwOldHookVirtualProtectValue2);
-
-	DWORD dwProtect = 0;
-	::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, PAGE_EXECUTE_READWRITE, &dwProtect);
-	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = 0x4DB8;
-	*reinterpret_cast<BYTE*>(GetHookVirtualProtectAddr() + 0x4) = 0x0000;
-	Ptr();
-	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = dwOldHookVirtualProtectValue1;
-	*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x4) = dwOldHookVirtualProtectValue2;
-	::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, dwProtect, &dwProtect);
+	if (dwOldHookVirtualProtectValue1 != 0x4DB8)
+	{
+		//DWORD dwOldHookVirtualProtectValue2 = ReadDWORD(GetHookVirtualProtectAddr() + 0x4);
+		//LOG_C_D(L"dwOldHookVirtualProtectValue=[%X,%X]", dwOldHookVirtualProtectValue1, dwOldHookVirtualProtectValue2);
+		LOG_C_D(L"»Ö¸´ VirtualProtect");
+		DWORD dwProtect = 0;
+		::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, PAGE_EXECUTE_READWRITE, &dwProtect);
+		*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = 0x4DB8;
+		*reinterpret_cast<BYTE*>(GetHookVirtualProtectAddr() + 0x4) = 0x0000;
+		Ptr();
+		//*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x0) = dwOldHookVirtualProtectValue1;
+		//*reinterpret_cast<DWORD*>(GetHookVirtualProtectAddr() + 0x4) = dwOldHookVirtualProtectValue2;
+		::VirtualProtect(reinterpret_cast<LPVOID>(GetHookVirtualProtectAddr()), 0x8, dwProtect, &dwProtect);
+	}
+	
 }
 
 DWORD CCodeTransfer::GetHookVirtualProtectAddr()

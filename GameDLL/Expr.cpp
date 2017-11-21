@@ -3,6 +3,7 @@
 #include <MyTools/Log.h>
 #include <MyTools/Character.h>
 #include <MyTools/CLEchoException.h>
+#include <MyTools/CLHook.h>
 #include "GameStruct.h"
 #include "Monster.h"
 #include "ObjectFunction.h"
@@ -17,6 +18,7 @@
 #include "PetExtend.h"
 #include "NpcObject.h"
 #include "KillMobsterTask.h"
+#include "PersonAttribute.h"
 
 #define _SELF L"Expr.cpp"
 CExpr::CExpr()
@@ -31,7 +33,8 @@ CExpr::~CExpr()
 
 VOID CExpr::Release()
 {
-
+	MyTools::CLHook::UnHook_Fun_Jmp_MyAddr(&_HookContent);
+	_HookContent.Release();
 }
 
 std::vector<MyTools::ExpressionFunPtr>& CExpr::GetVec()
@@ -49,6 +52,7 @@ std::vector<MyTools::ExpressionFunPtr>& CExpr::GetVec()
 		{ std::bind(&CExpr::PrintTask,this, std::placeholders::_1),L"PrintTask" },
 		{ std::bind(&CExpr::Start,this, std::placeholders::_1),L"Start" },
 		{ std::bind(&CExpr::Stop,this, std::placeholders::_1),L"Stop" },
+		{ std::bind(&CExpr::PrintPet,this, std::placeholders::_1),L"PrintPet" },
 	};
 
 	return Vec;
@@ -189,6 +193,30 @@ DWORD GetECX()
 	return pGameUi->GetObj();
 }
 
+DWORD dwHookAddr = 0;
+DWORD dwGamblingMoney = 1;
+CHAR* pszMoney = nullptr;
+__declspec(naked) VOID HookGuess()
+{
+	__asm
+	{
+		MOV EAX, DWORD PTR DS : [ESP + 0xC];
+		MOV pszMoney, EAX;
+		PUSHAD;
+	}
+
+	wsprintfA(pszMoney, "%d", dwGamblingMoney);
+
+	__asm
+	{
+		POPAD;
+		MOV EAX, 0x715320;
+		CALL EAX;
+		MOV EBX, dwHookAddr;
+		ADD EBX, 5;
+		JMP EBX;
+	}
+}
 
 VOID CExpr::Test(CONST std::vector<std::wstring>&)
 {
@@ -232,13 +260,41 @@ VOID CExpr::Test(CONST std::vector<std::wstring>&)
 		break;
 	}
 	*/
-
-	auto pBtn = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"AutoFightDlg.ContinueBtn");
-	if (pBtn != nullptr)
+	if (_HookContent.dwHookAddr == 0)
 	{
-		LOG_MSG_CF(L"pBtn=%X", pBtn);
-		pBtn->Click();
+		dwHookAddr = _HookContent.dwHookAddr = 0x89B6B8;
+		_HookContent.dwFunAddr = reinterpret_cast<DWORD>(HookGuess);
+		_HookContent.uNopCount = 0;
+		MyTools::CLHook::Hook_Fun_Jmp_MyAddr(&_HookContent);
 	}
+	
+	
+	CObjectFunction::GetInstance().RefreshStaticMapGameUi();
+	auto pGameUi = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"GuessEleAnimalsDlg.StartBtn");
+	if (pGameUi == nullptr)
+	{
+		LOG_C_E(L"UnExist GuessEleAnimalsDlg.StartBtn");
+		return;
+	}
+
+	static DWORD dwLastMoney = CPersonAttribute().GetMoney().dwCash;
+
+	
+
+	pGameUi->Click();
+	::Sleep(10 * 1000);
+	if (dwLastMoney < CPersonAttribute().GetMoney().dwCash)
+	{
+		LOG_C_D(L"赢了……");
+		dwGamblingMoney = 1;
+	}
+	else
+	{
+		LOG_C_D(L"输了…… 下把准备押 [%d]", dwGamblingMoney);
+		dwGamblingMoney *= 2;
+	}
+
+	dwLastMoney = CPersonAttribute().GetMoney().dwCash;
 }
 
 VOID CExpr::PrintMonster(CONST std::vector<std::wstring>&)
@@ -304,4 +360,14 @@ VOID CExpr::Start(CONST std::vector<std::wstring>&)
 VOID CExpr::Stop(CONST std::vector<std::wstring>&)
 {
 	g_IsRuning = FALSE;
+}
+
+VOID CExpr::PrintPet(CONST std::vector<std::wstring>&)
+{
+	std::vector<CPetObject> Vec;
+	CObjectFunction::GetInstance().GetVecPet(Vec, nullptr);
+	for (auto& itm : Vec)
+		LOG_C_D(L"itm.Name=%s, ID=%X", itm.GetName().c_str(), itm.GetId());
+
+	LOG_C_D(L"JoinWarId=%X", CPetObject::GetJoinWarPetId());
 }

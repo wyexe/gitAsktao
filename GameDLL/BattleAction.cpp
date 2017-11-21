@@ -26,7 +26,7 @@ BOOL CBattleAction::Fight()
 
 	while (g_IsRuning && _PersonAttribute.IsFighting())
 	{
-		CObjectFunction::GetInstance().RefreshStaticMapGameUi();
+		/*CObjectFunction::GetInstance().RefreshStaticMapGameUi();
 		//auto pAutoFightDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"AutoFightDlg.ContinueBtn");
 		auto pTalkMenuDlg = CObjectFunction::GetInstance().FindGameUi_For_StaticMap_By_MapKey(L"TalkNoMenuDlg");
 		if (pTalkMenuDlg != nullptr && pTalkMenuDlg->IsShow())
@@ -35,7 +35,7 @@ BOOL CBattleAction::Fight()
 			pTalkMenuDlg->Click();
 			::Sleep(1000);
 			continue;
-		}
+		}*/
 		//if (pAutoFightDlg != nullptr && pAutoFightDlg->IsShow())
 		//{
 		//	LOG_C_D(L"自动战斗中……");
@@ -76,8 +76,8 @@ BOOL CBattleAction::Fight()
 		::Sleep(1000);
 	}
 
-	CStatusCheck().CheckHealth();
 	LOG_C_D(L"战斗结束");
+	CStatusCheck().CheckHealth();
 	return TRUE;
 }
 

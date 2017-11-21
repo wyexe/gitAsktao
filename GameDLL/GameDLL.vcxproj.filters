@@ -264,6 +264,9 @@
     <ClInclude Include="StatusCheck.h">
       <Filter>Core\Feature\Check</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLHook.h">
+      <Filter>MyTools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -421,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="StatusCheck.cpp">
       <Filter>Core\Feature\Check</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLHook.cpp">
+      <Filter>MyTools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

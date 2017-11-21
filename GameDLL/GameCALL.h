@@ -8,6 +8,8 @@ class CGameCALL
 public:
 	using SendCALLPtr = BOOL(WINAPIV*)(...);
 	using FightCALLPtr = BOOL(WINAPIV*)(...);
+	static SendCALLPtr	_SendPtr;
+	static FightCALLPtr _FightPtr;
 public:
 	CGameCALL() = default;
 	~CGameCALL() = default;
@@ -44,8 +46,7 @@ public:
 
 	static VOID SkipTalk(_In_ DWORD dwGameUiObject);
 private:
-	static SendCALLPtr	_SendPtr;
-	static FightCALLPtr _FightPtr;
+	
 	static CHAR         _szEmptyText[32];
 };
 

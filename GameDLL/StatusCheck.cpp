@@ -21,11 +21,13 @@ VOID CStatusCheck::CheckHealth() CONST
 	{
 		LOG_C_D(L"人物补血");
 		CCodeTransfer::PushPtrToMainThread([] { CGameCALL::PersonAddHp(); });
+		::Sleep(1000);
 	}
 	if (_PersonAttribute.GetPercentMp() <= 70)
 	{
 		LOG_C_D(L"人物补蓝");
 		CCodeTransfer::PushPtrToMainThread([] { CGameCALL::PersonAddMp(); });
+		::Sleep(1000);
 	}
 
 	CPetObject Pet(0);
@@ -35,11 +37,13 @@ VOID CStatusCheck::CheckHealth() CONST
 		{
 			LOG_C_D(L"宠物补血");
 			CCodeTransfer::PushPtrToMainThread([Pet] { CGameCALL::PetAddHp(Pet.GetObj()); });
+			::Sleep(1000);
 		}
 		if (Pet.GetPercentMp() <= 70)
 		{
 			LOG_C_D(L"宠物补蓝");
 			CCodeTransfer::PushPtrToMainThread([Pet] { CGameCALL::PetAddMp(Pet.GetObj()); });
+			::Sleep(1000);
 		}
 		if (Pet.GetLoyalty() < 80)
 		{

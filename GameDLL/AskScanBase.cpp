@@ -106,7 +106,7 @@ VOID CAskScanBase::Start() CONST
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	UI是否显示偏移 0x%X", dwBase);
 
 	// 鼠标点击CALL
-	dwBase = MyTools::CLSearchBase::FindCALL("6A0068????????8BCEE8????????5E59C2", 0x44D199 - 0x44D1A2, dwClient, 2, 0, Ask_Client);
+	dwBase = MyTools::CLSearchBase::FindCALL("6A0068????????8BCEE8????????5E59C2", 0x44D199 - 0x44D1A2, dwClient, 1, 0, Ask_Client);
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	鼠标点击CALL	0x%X", dwBase);
 
 	// 游戏检测基址
@@ -126,7 +126,7 @@ VOID CAskScanBase::Start() CONST
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	宠物基址	0x%X", dwBase);
 
 	// 宠物出战ID偏移
-	dwBase = MyTools::CLSearchBase::FindBase_ByCALL("85??74??8B??24??85??74??8B??????????6A00", 0x90EC14 - 0x90EC0D, dwClient, 2, 0, Ask_Client, 0x2, 0xFF);
+	dwBase = MyTools::CLSearchBase::FindBase_ByCALL("85??74??8B??24??85??74??8B??????????6A00", 0x90FEB4 - 0x90FEAD, dwClient, 2, 0, Ask_Client, 0x2, 0xFF);
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	宠物出战ID偏移	0x%X", dwBase);
 
 	// 宠物补血基址
@@ -146,7 +146,7 @@ VOID CAskScanBase::Start() CONST
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	任务遍历偏移	0x%X", dwBase);
 
 	// 队友名字UI偏移
-	dwBase = MyTools::CLSearchBase::FindBase_ByCALL("C2??????????????8B????0C00000033??F3??75??6868020000", 0x00962235 - 0x96221E, dwClient, 1, 0, Ask_Client, 0x4B6A5F - 0x4B6A20 - 0x2);
+	dwBase = MyTools::CLSearchBase::FindBase_ByCALL("C2??????????????8B????0C00000033??F3??75??6868020000", 0x00962235 - 0x96221E, dwClient, 1, 0, Ask_Client, 0x4B6A5F - 0x4B6A20 + 0x2);
 	MyTools::CLog::GetInstance().Print(__FUNCTIONW__, _SELF, 0, LOG_TYPE_CONSOLE, MyTools::CLog::em_Log_Type_Debug, FALSE, L"#define	队友名字UI偏移	0x%X", dwBase);
 
 	// 战斗状态基址

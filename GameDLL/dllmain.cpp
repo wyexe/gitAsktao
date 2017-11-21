@@ -6,6 +6,7 @@
 #include <MyTools/CmdLog.h>
 #include <MyTools/CLAsync.h>
 #include <MyTools/Character.h>
+#include <MyTools/CLEchoException.h>
 #include "Expr.h"
 #include "GameVariable.h"
 #include "CodeTransfer.h"
@@ -19,7 +20,7 @@ DWORD WINAPI _WorkThread(LPVOID)
 	MyTools::CLog::GetInstance().SetClientName(L"Game", MyTools::CLPublic::MakeCurrentPath(L"\\DLog\\"));
 	
 	MyTools::CCmdLog::GetInstance().Run(L"Game", CExpr::GetInstance().GetVec());
-	CCodeTransfer::Hook();
+	MyTools::CLEchoException::GetInstance().InvokeAction(__FUNCTIONW__, [] {CCodeTransfer::Hook(); });
 	return 0;
 }
 

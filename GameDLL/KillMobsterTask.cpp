@@ -31,6 +31,8 @@ BOOL CKillMobsterTask::Run()
 			continue;
 		}
 
+		::Sleep(1000);
+		continue;
 		/*if (wsPersonName != L"´óÄ®ËÆÑ©") // ¶ÓÓÑ²Ù×÷
 		{
 			::Sleep(1000);
